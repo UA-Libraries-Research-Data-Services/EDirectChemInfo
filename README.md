@@ -40,12 +40,6 @@ I generally refer to the official [Entrez Programming Utilities Help](https://ww
 ```console
 
 user@computer:~$ einfo -help
-
-```
-
-produces:
-
-```console
 einfo 13.7
 
 Database Selection
