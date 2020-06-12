@@ -28,26 +28,24 @@ NCBI has specific data usage policies and disclaimers:
 
 If you do not follow NCBI's usage policies (e.g., no more than 3 requests per second), NCBI may block your IP address. So be cautious and follow good programming practices of testing and adding sleep delays, particularly if executing multiple sequential calls in a loop. Moreover, it is always a good idea to include your email address in the requests so that NCBI can contact you if necessary. You can add your email address within each query like this:
 
-```shell
-
-e-utility **-email name@xx.edu** -arg input
-
+```console
+user@computer:~$ eutility -email name@xx.edu -arg input
 ```
-The "e-utility" here is a place holder for one of the actual applications like `einfo` or `esearch`,and `-arg input` is a placeholder for e-utility arguments like `-db pubmed` or `-query "food allergies"`.
+The "eutility" here is a place holder for one of the actual applications like `einfo` or `esearch`, and `-arg input` is a placeholder for e-utility arguments like `-db pubmed` or `-query "food allergies"`.
 
 ## Getting Help within e-utility applications
 
-I generally refer to the official [Entrez Programming Utilities Help](https://www.ncbi.nlm.nih.gov/books/NBK25501/) or the [NIH NLM E-Utilities Documentation](https://dataguide.nlm.nih.gov/eutilities/utilities.html), however for a quick reference or reminder of the proper syntax, the -help option is very useful:
+I generally refer to the official [Entrez Programming Utilities Help](https://www.ncbi.nlm.nih.gov/books/NBK25501/) or the [NIH NLM E-Utilities Documentation](https://dataguide.nlm.nih.gov/eutilities/utilities.html), however for a quick reference or reminder of the proper syntax, the `-help` option is very useful:
 
-```shell
+```console
 
-einfo -help
+user@computer:~$ einfo -help
 
 ```
 
 produces:
 
-```
+```console
 einfo 13.7
 
 Database Selection
