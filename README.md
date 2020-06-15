@@ -4,9 +4,9 @@ This repository contains Entrez Direct (EDirect, an NCBI tool) Unix scripts for 
 
 Please note that this EDirectChemInfo repository is not affiliated with NCBI. You should contact [NCBI](https://www.ncbi.nlm.nih.gov/books/NBK179288/#_chapter6_For_More_Information_) for specific questions related to EDirect. This repository was created to accompany library instruction at The University of Alabama. With that in mind, please feel free to open a GitHub New Issue with comments/questions if you think there is something I can help you with. Alternatively, you can contact me directly:
 
-Vincent Scalfani
-Science and Engineering Librarian
-The University of Alabama
+Vincent Scalfani\
+Science and Engineering Librarian\
+The University of Alabama\
 [UA Libraries Directory](https://www.lib.ua.edu/#/staffdir?liaison=1&search=scalfani)
 
 ## Useful Resources
