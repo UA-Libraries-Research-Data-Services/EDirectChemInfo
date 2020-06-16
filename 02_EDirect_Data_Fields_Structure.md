@@ -1,5 +1,11 @@
 # Available EDirect Data Fields and Data Structures
 
+**Syntax Notes**
+
+> 1. Replace `name@xx.edu` with your email address.
+> 2. `user@computer:~$` represents an example terminal prompt name. Command/argument input is after the `$`.
+> 3. `\` followed by `>` on the next line represents continued terminal input.
+
 Before getting too far, it is helpful to understand the available indexed search fields, related links, and returned data format. We can see the available fields and links (connected records) with the `einfo` application. For example, if we are interested in the PubChem Compound (pccompound) database:
 
 ```console
