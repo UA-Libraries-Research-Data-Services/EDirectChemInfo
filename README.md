@@ -24,7 +24,7 @@ EDirect is a Unix command line tool from NCBI that allows programmatic retrieval
 
 ## Installation Tips
 
-Follow the installation instructions from NCBI: [Entrez Direct: E-utilities on the UNIX Command Line](https://www.ncbi.nlm.nih.gov/books/NBK179288/). There are several different ways to install EDirect. I used option 3 (EDirect v13.7) with `wget` in Gnome Terminal on my Linux Ubuntu 18.04 workstation. If you are using Windows, NCBI mentions that you can use the Cygwin Unix emulator. Another option for Windows users is to setup a Linux virtual machine. There are many tutorials for setting up virtual machines. For example, here is one for installing [Ubuntu on VirtualBox](https://askubuntu.com/questions/142549/how-to-install-ubuntu-on-virtualbox). When installing EDirect in a virtual machine, you may need to customize the VirtualBox network settings in order to use the `curl` or `wget` EDirect installation methods. In my testing on a Ubuntu 20.04 virtual machine, the fourth installation option for EDirect (using the longer perl script) worked fine with the standard VirtualBox network settings.
+Follow the installation instructions from NCBI: [Entrez Direct: E-utilities on the UNIX Command Line](https://www.ncbi.nlm.nih.gov/books/NBK179288/). There are several different methods to install EDirect. I used option 3 (EDirect v13.7) with `wget` in Gnome Terminal on a Linux Ubuntu 18.04 workstation. If you are using Windows, NCBI mentions that you can use the Cygwin Unix emulator. Another option for Windows users is to setup a Linux virtual machine. There are many tutorials for setting up virtual machines. For example, here is one for installing [Ubuntu on VirtualBox](https://askubuntu.com/questions/142549/how-to-install-ubuntu-on-virtualbox). When installing EDirect in a virtual machine, you may need to customize the VirtualBox network settings in order to use the `curl` or `wget` EDirect installation methods. In my testing on an Ubuntu 20.04 virtual machine, the fourth installation option for EDirect (using the longer perl script) worked fine with the standard VirtualBox network settings.
 
 ## Usage Tip
 
@@ -44,7 +44,7 @@ Replace name@xx.edu with your email address. The `eutility` is a place holder fo
 
 ## Getting Help within an e-utility application
 
-I generally refer to the official [Entrez Programming Utilities Help](https://www.ncbi.nlm.nih.gov/books/NBK25501/) or the [NIH NLM E-Utilities Documentation](https://dataguide.nlm.nih.gov/eutilities/utilities.html), however for a quick reference or reminder of the proper syntax, the `-help` option is useful. Here is an example with with `einfo` application:
+I generally refer to the official [Entrez Programming Utilities Help Document](https://www.ncbi.nlm.nih.gov/books/NBK25501/) or the [NIH NLM E-Utilities Documentation](https://dataguide.nlm.nih.gov/eutilities/utilities.html), however for a quick reference or reminder of the proper syntax, the `-help` option is useful. Here is an example with the `einfo` application:
 
 ```console
 
@@ -96,7 +96,7 @@ Link Example
 
 ## Understanding the Available Data Fields and Data Structures
 
-Before getting too far, it is helpful to understand the available indexed search fields, related links, and returned data format. We can see the available indexed fields and links (connected records) with the `einfo` application. For example, if we are interested in the PubChem Compound (pccompound) database:
+Before getting too far, it is helpful to understand the available indexed search fields, related links, and returned data format. We can see the available fields and links (connected records) with the `einfo` application. For example, if we are interested in the PubChem Compound (pccompound) database:
 
 ```console
 
@@ -179,7 +179,7 @@ pccompound_structure	Protein Structures
 pccompound_taxonomy	Taxonomy
 
 ```
-Great, so now we have an understanding about what kind of data is available, next let's take a look at a PubChem Compound record using the `esearch` and `efetch` applications:
+Now that we have an understanding about what kind of data is available in the PubChem Compound database, let's take a look at a PubChem Compound record using the `esearch` and `efetch` applications:
 
 ```console
 
@@ -195,7 +195,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID]
 
 ```
 
-We searched PubChem for the Compound Identifier 512323 using `esearch`, and the NCBI Entrez server returned a summary of the search results. The WebEnV and QueryKey specify the location of the search results on the NCBI server. In order to actually retrieve the data, we can pipe (|) the `esearch` results directly into the `efetch` application:
+We searched PubChem for the Compound Identifier 512323 using `esearch`, and the NCBI Entrez server returned a summary of the search results. The WebEnV and QueryKey specify the location of the search results on the NCBI server. In order to retrieve the data, we can pipe (|) the `esearch` results directly into the `efetch` application:
 
 ```console
 
@@ -277,7 +277,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID] | 
 </DocumentSummarySet>
 ```
 
-`efetch` returned the CID record data as document summary XML format (for other formats see `efetch -help`). This is great, however, we might want to parse the data also, and extract out a few specific data points. We can accomplish this with the EDirect application `xtract`. For example, to extract out only the IsomericSmiles, CID, InChIKey, MolecularFormula, and Molecular Weight:
+`efetch` returned the CID record data as document summary XML format (for other formats see `efetch -help`). XML is certainly useful, but we probably want to parse the data into a table for easier viewing and data analysis. EDirect contains a utility called `xtract` that can convert the Entrez XML data into tables. See `xtract -help` for more information. In brief, you will need to select a main XML heading tag to define the extract pattern and then specify the data you want to extract with the sub-heading tag names. For example, in the above CID record data, we can set the pattern to DocumentSummary (the first main XML tag in this case), and then the elements to a few of the sub-heading tags we are interested such as IsomericSmiles, CID, InChIKey, MolecularFormula, and MolecularWeight:
 
 ```console
 
@@ -288,17 +288,455 @@ C1[C@@H]([C@H](O[C@H]1N2C=C(C(=O)NC2=O)C3=CC=CS3)CO)O	512323	PCDQBRGMSMVLDZ-IQJO
 
 ```
 
-In a similar fashion, let's preview the available PubMed database indexed fields, links, and data structure...
+Similarly to PubChem Compound, let's preview the available PubMed database indexed fields, links, and data structure:
+
+```console
+
+user@computer:~$ einfo -email name@xx.edu -db pubmed -fields
+AFFL	Affiliation
+ALL	All Fields
+AUCL	Author Cluster ID
+AUID	Author - Identifier
+AUTH	Author
+BOOK	Book
+CDAT	Date - Completion
+CNTY	Place of Publication
+COIS	Conflict of Interest Statements
+COLN	Author - Corporate
+CRDT	Date - Create
+DSO	DSO
+ECNO	EC/RN Number
+ED	Editor
+EDAT	Date - Entrez
+EID	Extended PMID
+EPDT	Electronic Publication Date
+FAUT	Author - First
+FILT	Filter
+FINV	Investigator - Full
+FULL	Author - Full
+GRNT	Grant Number
+INVR	Investigator
+ISBN	ISBN
+ISS	Issue
+JOUR	Journal
+LANG	Language
+LAUT	Author - Last
+LID	Location ID
+MAJR	MeSH Major Topic
+MDAT	Date - Modification
+MESH	MeSH Terms
+MHDA	Date - MeSH
+OTRM	Other Term
+PAGE	Pagination
+PAPX	Pharmacological Action
+PDAT	Date - Publication
+PID	Publisher ID
+PPDT	Print Publication Date
+PS	Subject - Personal Name
+PTYP	Publication Type
+PUBN	Publisher
+SI	Secondary Source ID
+SUBH	MeSH Subheading
+SUBS	Supplementary Concept
+TIAB	Title/Abstract
+TITL	Title
+TT	Transliterated Title
+UID	UID
+VOL	Volume
+WORD	Text Word
+
+user@computer:~$ einfo -email name@xx.edu -db pubmed -links
+pubmed_assembly	Assembly
+pubmed_bioproject	Project Links
+pubmed_biosample	BioSample Links
+pubmed_biosystems	BioSystem Links
+pubmed_books_refs	Cited in Books
+pubmed_cdd	Conserved Domain Links
+pubmed_clinvar	ClinVar
+pubmed_clinvar_calculated	ClinVar (calculated)
+pubmed_dbvar	dbVar
+pubmed_gap	dbGaP Links
+pubmed_gds	GEO DataSet Links
+pubmed_gene	Gene Links
+pubmed_gene_bookrecords	Gene (from Bookshelf)
+pubmed_gene_citedinomim	Gene (OMIM) Links
+pubmed_gene_pmc_nucleotide	Gene (nucleotide/PMC)
+pubmed_gene_rif	Gene (GeneRIF) Links
+pubmed_genome	Genome Links
+pubmed_geoprofiles	GEO Profile Links
+pubmed_homologene	HomoloGene Links
+pubmed_medgen	MedGen
+pubmed_medgen_bookshelf_cited	MedGen (Bookshelf cited)
+pubmed_medgen_genereviews	MedGen (GeneReviews)
+pubmed_medgen_omim	MedGen (OMIM)
+pubmed_nuccore	Nucleotide Links
+pubmed_nuccore_refseq	Nucleotide (RefSeq) Links
+pubmed_nuccore_weighted	Nucleotide (Weighted) Links
+pubmed_omim_bookrecords	OMIM (from Bookshelf)
+pubmed_omim_calculated	OMIM (calculated) Links
+pubmed_omim_cited	OMIM (cited) Links
+pubmed_pcassay	PubChem BioAssay
+pubmed_pccompound	PubChem Compound
+pubmed_pccompound_mesh	PubChem Compound (MeSH Keyword)
+pubmed_pccompound_publisher	PubChem Compound (Publisher)
+pubmed_pcsubstance	PubChem Substance Links
+pubmed_pcsubstance_bookrecords	PubChem Substance (from Bookshelf)
+pubmed_pcsubstance_publisher	PubChem Substance (Publisher)
+pubmed_pmc	PMC Links
+pubmed_pmc_bookrecords	References in PMC for this Bookshelf citation
+pubmed_pmc_embargo	_
+pubmed_pmc_local	_
+pubmed_pmc_refs	Cited in PMC
+pubmed_popset	PopSet Links
+pubmed_probe	Probe Links
+pubmed_protein	Protein Links
+pubmed_proteinclusters	Protein Cluster Links
+pubmed_protein_refseq	Protein (RefSeq) Links
+pubmed_protein_weighted	Protein (Weighted) Links
+pubmed_pubmed	Similar articles
+pubmed_pubmed_alsoviewed	Articles frequently viewed together
+pubmed_pubmed_bookrecords	References for this Bookshelf citation
+pubmed_pubmed_refs	References for PMC Articles
+pubmed_snp	SNP Links
+pubmed_snp_cited	SNP (Cited)
+pubmed_sra	SRA Links
+pubmed_structure	Structure Links
+pubmed_taxonomy_entrez	Taxonomy via GenBank
+
+```
+And here is an example PubMed article record in abstract form:
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pubmed -query "17630804"[PMID] |\
+> efetch -format abstract
+
+1. J Org Chem. 2007 Aug 17;72(17):6621-3. Epub 2007 Jul 14.
+
+Total synthesis and absolute configuration determination of (+)-bruguierol C.
+
+Solorio DM(1), Jennings MP.
+
+Author information: 
+(1)Department of Chemistry, 500 Campus Drive, The University of Alabama,
+Tuscaloosa, Alabama 35487-0336, USA.
+
+The first total synthesis and absolute configuration of bruguierol C are
+reported. The key step involved the diastereoselective capture of an in situ
+generated oxocarbenium ion via an intramolecular Friedel-Crafts alkylation.
+
+DOI: 10.1021/jo071035l 
+PMID: 17630804  [Indexed for MEDLINE]
+
+```
+
+and the same record in XML format:
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pubmed -query "17630804"[PMID] |\
+> efetch -format xml
+<?xml version="1.0" ?>
+<!DOCTYPE PubmedArticleSet PUBLIC "-//NLM//DTD PubMedArticle, 1st January 2019//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd">
+<PubmedArticleSet>
+<PubmedArticle>
+<MedlineCitation Status="MEDLINE" Owner="NLM">
+<PMID Version="1">17630804</PMID>
+<DateCompleted>
+<Year>2007</Year>
+<Month>10</Month>
+<Day>25</Day>
+</DateCompleted>
+<DateRevised>
+<Year>2007</Year>
+<Month>08</Month>
+<Day>10</Day>
+</DateRevised>
+<Article PubModel="Print-Electronic">
+<Journal>
+<ISSN IssnType="Print">0022-3263</ISSN>
+<JournalIssue CitedMedium="Print">
+<Volume>72</Volume>
+<Issue>17</Issue>
+<PubDate>
+<Year>2007</Year>
+<Month>Aug</Month>
+<Day>17</Day>
+</PubDate>
+</JournalIssue>
+<Title>The Journal of organic chemistry</Title>
+<ISOAbbreviation>J. Org. Chem.</ISOAbbreviation>
+</Journal>
+<ArticleTitle>Total synthesis and absolute configuration determination of (+)-bruguierol C.</ArticleTitle>
+<Pagination>
+<MedlinePgn>6621-3</MedlinePgn>
+</Pagination>
+<Abstract>
+<AbstractText>The first total synthesis and absolute configuration of bruguierol C are reported. The key step involved the diastereoselective capture of an in situ generated oxocarbenium ion via an intramolecular Friedel-Crafts alkylation.</AbstractText>
+</Abstract>
+<AuthorList CompleteYN="Y">
+<Author ValidYN="Y">
+<LastName>Solorio</LastName>
+<ForeName>Dionicio Martinez</ForeName>
+<Initials>DM</Initials>
+<AffiliationInfo>
+<Affiliation>Department of Chemistry, 500 Campus Drive, The University of Alabama, Tuscaloosa, Alabama 35487-0336, USA.</Affiliation>
+</AffiliationInfo>
+</Author>
+<Author ValidYN="Y">
+<LastName>Jennings</LastName>
+<ForeName>Michael P</ForeName>
+<Initials>MP</Initials>
+</Author>
+</AuthorList>
+<Language>eng</Language>
+<PublicationTypeList>
+<PublicationType UI="D016428">Journal Article</PublicationType>
+<PublicationType UI="D013485">Research Support, Non-U.S. Gov't</PublicationType>
+<PublicationType UI="D013486">Research Support, U.S. Gov't, Non-P.H.S.</PublicationType>
+</PublicationTypeList>
+<ArticleDate DateType="Electronic">
+<Year>2007</Year>
+<Month>07</Month>
+<Day>14</Day>
+</ArticleDate>
+</Article>
+<MedlineJournalInfo>
+<Country>United States</Country>
+<MedlineTA>J Org Chem</MedlineTA>
+<NlmUniqueID>2985193R</NlmUniqueID>
+<ISSNLinking>0022-3263</ISSNLinking>
+</MedlineJournalInfo>
+<ChemicalList>
+<Chemical>
+<RegistryNumber>0</RegistryNumber>
+<NameOfSubstance UI="D006575">Heterocyclic Compounds, 3-Ring</NameOfSubstance>
+</Chemical>
+<Chemical>
+<RegistryNumber>0</RegistryNumber>
+<NameOfSubstance UI="C523709">bruguierol C</NameOfSubstance>
+</Chemical>
+</ChemicalList>
+<CitationSubset>IM</CitationSubset>
+<MeshHeadingList>
+<MeshHeading>
+<DescriptorName UI="D006575" MajorTopicYN="N">Heterocyclic Compounds, 3-Ring</DescriptorName>
+<QualifierName UI="Q000138" MajorTopicYN="N">chemical synthesis</QualifierName>
+<QualifierName UI="Q000737" MajorTopicYN="Y">chemistry</QualifierName>
+</MeshHeading>
+<MeshHeading>
+<DescriptorName UI="D009682" MajorTopicYN="N">Magnetic Resonance Spectroscopy</DescriptorName>
+</MeshHeading>
+<MeshHeading>
+<DescriptorName UI="D015394" MajorTopicYN="Y">Molecular Structure</DescriptorName>
+</MeshHeading>
+<MeshHeading>
+<DescriptorName UI="D021241" MajorTopicYN="N">Spectrometry, Mass, Electrospray Ionization</DescriptorName>
+</MeshHeading>
+<MeshHeading>
+<DescriptorName UI="D013055" MajorTopicYN="N">Spectrophotometry, Infrared</DescriptorName>
+</MeshHeading>
+<MeshHeading>
+<DescriptorName UI="D013237" MajorTopicYN="N">Stereoisomerism</DescriptorName>
+</MeshHeading>
+</MeshHeadingList>
+</MedlineCitation>
+<PubmedData>
+<History>
+<PubMedPubDate PubStatus="pubmed">
+<Year>2007</Year>
+<Month>7</Month>
+<Day>17</Day>
+<Hour>9</Hour>
+<Minute>0</Minute>
+</PubMedPubDate>
+<PubMedPubDate PubStatus="medline">
+<Year>2007</Year>
+<Month>10</Month>
+<Day>27</Day>
+<Hour>9</Hour>
+<Minute>0</Minute>
+</PubMedPubDate>
+<PubMedPubDate PubStatus="entrez">
+<Year>2007</Year>
+<Month>7</Month>
+<Day>17</Day>
+<Hour>9</Hour>
+<Minute>0</Minute>
+</PubMedPubDate>
+</History>
+<PublicationStatus>ppublish</PublicationStatus>
+<ArticleIdList>
+<ArticleId IdType="pubmed">17630804</ArticleId>
+<ArticleId IdType="doi">10.1021/jo071035l</ArticleId>
+</ArticleIdList>
+</PubmedData>
+</PubmedArticle>
+
+</PubmedArticleSet>
+```
+
+The above returned XML PubMed record is hard to understand as it has many fields and does not contain tabbed indenting (at least not as presented in my terminal). Thankfully, we can use the `xtract -outline` argument to present a structured view of the data tags:
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pubmed -query "17630804"[PMID] | \
+> efetch -format xml | \
+> xtract -outline
+PubmedArticle
+  MedlineCitation
+    PMID
+    DateCompleted
+      Year
+      Month
+      Day
+    DateRevised
+      Year
+      Month
+      Day
+    Article
+      Journal
+        ISSN
+        JournalIssue
+          Volume
+          Issue
+          PubDate
+            Year
+            Month
+            Day
+        Title
+        ISOAbbreviation
+      ArticleTitle
+      Pagination
+        MedlinePgn
+      Abstract
+        AbstractText
+      AuthorList
+        Author
+          LastName
+          ForeName
+          Initials
+          AffiliationInfo
+            Affiliation
+        Author
+          LastName
+          ForeName
+          Initials
+      Language
+      PublicationTypeList
+        PublicationType
+        PublicationType
+        PublicationType
+      ArticleDate
+        Year
+        Month
+        Day
+    MedlineJournalInfo
+      Country
+      MedlineTA
+      NlmUniqueID
+      ISSNLinking
+    ChemicalList
+      Chemical
+        RegistryNumber
+        NameOfSubstance
+      Chemical
+        RegistryNumber
+        NameOfSubstance
+    CitationSubset
+    MeshHeadingList
+      MeshHeading
+        DescriptorName
+        QualifierName
+        QualifierName
+      MeshHeading
+        DescriptorName
+      MeshHeading
+        DescriptorName
+      MeshHeading
+        DescriptorName
+      MeshHeading
+        DescriptorName
+      MeshHeading
+        DescriptorName
+  PubmedData
+    History
+      PubMedPubDate
+        Year
+        Month
+        Day
+        Hour
+        Minute
+      PubMedPubDate
+        Year
+        Month
+        Day
+        Hour
+        Minute
+      PubMedPubDate
+        Year
+        Month
+        Day
+        Hour
+        Minute
+    PublicationStatus
+    ArticleIdList
+      ArticleId
+      ArticleId
+```
+
+The above structured output makes it easier to view the XML formatting and determine which data elements we are interested in extracting out with `xtract`, such as the PMID, Author/LastName, Author/Initials, ISOAbbreviation, ArticleTitle, PubDate, Volume, Issue, and MedlinePgn:
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pubmed -query "17630804"[PMID] | \
+> efetch -format xml | \
+> xtract -pattern PubmedArticle -element MedlineCitation/PMID -first Author/LastName Author/Initials \
+> ISOAbbreviation ArticleTitle PubDate/Year Volume Issue MedlinePgn
+17630804	Solorio	DM	J. Org. Chem.	Total synthesis and absolute configuration determination of (+)-bruguierol C.	2007	72	17	6621-3
+
+```
+Note that in the above `xtract` argument, the element selection is specified with `-first`, so that only the first occurrence is extracted (e.g., first Author).
 
 
+## PubChem <--> PubMed EDirect Recipes
 
-## PubChem and PubChem --> PubMed EDirect Recipes
+### Retrieve Associated PubMed References from a PubChem Compound Search
+
+### Retrieve Associated PubMed References from a PubChem Substance Data Source Depositor
+
+### Retrieve Associated PubChem Compounds from a PubMed Search
+
+### Retrieve Associated PubChem Compounds from a list of PubMed IDs (i.e., keep track of the individual links)
 
 
-## PubMed and PubMed --> PubChem EDirect Recipes
+## PubChem EDirect Recipes
+
+### Search PubChem Compound via InChIKey and Retrieve Data
+
+### Find Compounds with Specific Atom and Bond Attributes
+
+### Find Compounds Deposited on a Specific Date
+
+### Retrieve Pre-Computed Linked Similar Compounds
+
+### Find Related PubChem Substances (+ count)
 
 
+## PubMed EDirect Recipes
 
+### Retrieve Cited and Citing References (+ count) for a PubMed Article
+
+### Retrieve Related References and Filter For Dissertation References
+
+### Calculate Most Frequent Journal Title For a PubMed Search
+
+### Calculate the Frequency of Researcher Publications in PubMed by Year
+
+### Calculate Most Frequent Affiliated Collaborations
+
+
+## Combining EDirect Results with Chemical Depiction (MarvinView) and Plotting (gnuplot)
 
 
 
