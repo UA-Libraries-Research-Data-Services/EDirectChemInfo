@@ -1,6 +1,6 @@
 # PubChem <--> PubMed EDirect Recipes
 
-**Syntax Notes**
+**Notes**
 
 > 1. Replace `name@xx.edu` with your email address.
 > 2. `user@computer:~$` represents an example terminal prompt name. Command/argument input is after the `$`.
