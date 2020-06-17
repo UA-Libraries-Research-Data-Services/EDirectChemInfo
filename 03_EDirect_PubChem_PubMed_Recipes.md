@@ -24,6 +24,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | 
 22531153	Fowler	DA	Chem. Commun. (Camb.)	2012	48	43	5262-4
 ...
 ```
+_executed on 2020.06.17, total count was 102._
 
 In the above script, we first search the PubChem Compound (pccompound) database for the CID 174076 with the Compound ID field, [UID] using `esearch`. The `esearch` results are then piped to `elink` finding related PubMed citations (pccompound_pubmed). Finally, we retrieve the results with `efetch` and extract out some bibliographic citation information using `xtract`.
 
@@ -45,6 +46,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | 
 21445427	Chaban	VV	Phys Chem Chem Phys	2011	13	17	7910-20
 ...
 ```
+_executed on 2020.06.17, total count was 11._
 
 One of my favorite literature searches is to start with a PubChem compound and then find PubMed literature related to its synthesis. Similarly to the search above, we can filter out references using an `efilter` query for 'chemical synthesis' as a MeSH subheading [SUBH]:
 
@@ -65,6 +67,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 94257[uid] | \
 15227545	Synthesis and biological evaluation of synthetic viridins derived from C(20)-heteroalkylation of the steroidal PI-3-kinase inhibitor wortmannin.	Org. Biomol. Chem.	2004
 15065284	Synthesis of the furanosteroidal antibiotic viridin.	Angew. Chem. Int. Ed. Engl.	2004
 ```
+_executed on 2020.06.17, total count was 8._
 
 You may have noticed that in the above search, we found related PubMed literature via MeSH keyword instead of related PubMed citations (pccompound_pubmed_mesh vs. pccompound_pubmed). It is a little tricky, but you can combine these queries using an OR operator to retrieve PubMed literature related to a PubChem CID for both the pccompound_pubmed_mesh and pccompound_pubmed Entrez links in one dataset:
 
@@ -90,6 +93,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | 
 31121553	A	S	Ecotoxicol. Environ. Saf.	2019	180	466-472
 ...
 ```
+_executed on 2020.06.17, total count was 314._
 
 ### Retrieve Associated PubMed Publisher References from a PubChem Substance Data Source Depositor
 
@@ -115,13 +119,15 @@ user@computer:~$ esearch -email name@xx.edu -db pcsubstance -query "nature_commu
 ...
 ```
 
+_executed on 2020.06.17, total count was 101._
+
 In the above script, we first search the PubChem Substance (pcsubstance) database using `esearch` for the data source depositor Nature Communications. We can use the Current Source Name [CSN] field for this query. Note that an underscore is put in place of the space in the query. This syntax is important for searching in PubChem through EDirect applications. After `esearch`, we piped the results into `elink` twice, first finding related PubChem Compounds, and then using this new result list of CIDs to find related PubMed publisher deposited citations (pccompound_pubmed_publisher). Finally, similarly to previous searches, we use a combination of `efetch` and `xtract` to retrieve bibliographic data. 
 
 The latter script provides a high level view of linked PubMed literature (i.e., for all of the CIDs in our results), but what if we want to obtain individual relationships of the CIDs to PubMed IDs (CID <--> PMID)? We can do this using the `-cmd neighbor` option in `elink`:
 
 ```console
 
-esearch -email name@xx.edu -db pcsubstance -query "nature_communications"[CSN] | \
+user@computer:~$ esearch -email name@xx.edu -db pcsubstance -query "nature_communications"[CSN] | \
 > elink -target pccompound -name pcsubstance_pccompound_same | \
 > elink -target pubmed -name pccompound_pubmed_publisher -cmd neighbor | \
 > xtract -pattern LinkSet -element Id
@@ -140,7 +146,9 @@ esearch -email name@xx.edu -db pcsubstance -query "nature_communications"[CSN] |
 91868204	23764831
 ...
 ```
-The first column are the PubChem CIDs and the second column contains the linked PMIDs.
+_executed on 2020.06.17, total count was 1594 (returns all CIDs, not all have linked PMID)._
+
+The first column contains the PubChem CIDs and the second column contains the linked PMIDs.
 
 ### Retrieve Associated PubChem Compounds from a PubMed Search
 
