@@ -110,7 +110,7 @@ We searched PubChem for the Compound Identifier 512323 using `esearch`, and the 
 ```console
 
 user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID] | \
-efetch -format docsum
+> efetch -format docsum
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE DocumentSummarySet PUBLIC "-//NLM//DTD esummary pccompound 20170720//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20170720/esummary_pccompound.dtd">
 
