@@ -11,6 +11,8 @@
 
 > S01: PubChem Compound --> PubMed Citations
 
+In the below script, we first search the PubChem Compound (pccompound) database for the CID 174076 within the Compound ID field, [UID] using `esearch`. The `esearch` results are then piped to `elink` finding related PubMed citations (pccompound_pubmed). Finally, we retrieve the results with `efetch` and extract out some bibliographic citation information using `xtract`.
+
 ```console
 
 user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | \
@@ -29,9 +31,9 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | 
 ```
 _executed on 2020.06.17, total count was 102._
 
-In the above script, we first search the PubChem Compound (pccompound) database for the CID 174076 with the Compound ID field, [UID] using `esearch`. The `esearch` results are then piped to `elink` finding related PubMed citations (pccompound_pubmed). Finally, we retrieve the results with `efetch` and extract out some bibliographic citation information using `xtract`.
+> S02: PubChem Compound --> PubMed Citations (with filtering)
 
-We can also filter our results with `efilter` to only include PubMed citations linked to the CID but also matching a specific PubMed query. For example, if we were only interested in linked references from the journal _Phys Chem Chem Phys_, we can use the journal field [JOUR] in an `efilter` query:
+We can filter `elink` results with `efilter` to only include PubMed citations linked to the CID but also matching a specific PubMed query. For example, if we were only interested in linked _Phys Chem Chem Phys_ references to CID 174076, we can use the journal field [JOUR] in an `efilter` query:
 
 ```console
 
