@@ -17,14 +17,14 @@ If you do not follow NCBI's usage policies (e.g., no more than 3 requests per se
 
 ```console
 
-user@computer:~$ eutility -email name@xx.edu -arg input
+user@computer:~$ e-function -email name@xx.edu -arg input
 
 ```
-Replace name@xx.edu with your email address. The `eutility` is a place holder for one of the actual applications like `einfo` or `esearch`, and `-arg input` is a placeholder for e-utility argument(s) like `-db pccompound` or `-db pubmed -query "food allergies"`.
+Replace name@xx.edu with your email address. The `e-function` is a place holder for one of the actual EDirect functions like `einfo` or `esearch`, and `-arg input` is a placeholder for e-function argument(s) like `-db pccompound` or `-db pubmed -query "food allergies"`.
 
-## e-utility Application Help
+## EDirect Function Help
 
-I generally refer to the official [Entrez Programming Utilities Help Document](https://www.ncbi.nlm.nih.gov/books/NBK25501/) or the [NIH NLM E-Utilities Documentation](https://dataguide.nlm.nih.gov/eutilities/utilities.html), however for a quick reference or reminder of the proper syntax, the `-help` option is useful. Here is an example with the `einfo` application:
+I generally refer to the official [Entrez Programming Utilities Help Document](https://www.ncbi.nlm.nih.gov/books/NBK25501/) or the [NIH NLM E-Utilities Documentation](https://dataguide.nlm.nih.gov/eutilities/utilities.html), however for a quick reference or reminder of the proper syntax, the `-help` option is useful. Here is an example with the `einfo` function:
 
 ```console
 

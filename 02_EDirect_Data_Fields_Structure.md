@@ -6,7 +6,7 @@
 > 2. `user@computer:~$` represents an example terminal prompt name. Command/argument input is after the `$`.
 > 3. `\` followed by `>` on the next line represents continued terminal input.
 
-We can view available Entrez databases, data fields, and links (connected records) with the EDirect `einfo` application. To retrieve a list of all databases, use the `-dbs` argument:
+We can view available Entrez databases, data fields, and links (connected records) with the EDirect `einfo` function. To retrieve a list of all databases, use the `-dbs` argument:
 
 ```console
 
@@ -139,7 +139,7 @@ pccompound_structure	Protein Structures
 pccompound_taxonomy	Taxonomy
 
 ```
-Now that we have an understanding about what kind of data is available in the PubChem Compound database, let's take a look at a PubChem Compound record using the `esearch` and `efetch` applications:
+Now that we have an understanding about what kind of data is available in the PubChem Compound database, let's take a look at a PubChem Compound record using the `esearch` and `efetch` functions:
 
 ```console
 
@@ -155,7 +155,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID]
 
 ```
 
-We searched PubChem for the Compound Identifier 512323 using `esearch`, and the NCBI Entrez server returned a summary of the search results. The WebEnV and QueryKey specify the location of the search results on the NCBI server. In order to retrieve the data, we can pipe, `|`, the `esearch` results directly into the `efetch` application:
+We searched PubChem for the Compound Identifier 512323 using `esearch`, and the NCBI Entrez server returned a summary of the search results. The WebEnV and QueryKey specify the location of the search results on the NCBI server. In order to retrieve the data, we can pipe, `|`, the `esearch` results directly into the `efetch` function:
 
 ```console
 
@@ -237,7 +237,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID] | 
 </DocumentSummarySet>
 ```
 
-`efetch` returned the CID record data as document summary XML format (for other formats see `efetch -help`). XML is certainly useful, but we probably want to parse the data into a table for easier viewing and data analysis. EDirect contains a utility called `xtract` that can convert the Entrez XML data into tables. See `xtract -help` for more information. In brief, you will need to select a main XML heading tag to define the extract pattern and then specify the data you want to extract with the sub-heading tag names. For example, in the above CID record data, we can set the pattern to DocumentSummary (the first main XML tag in this case), and then the elements to a few of the sub-heading tags we are interested such as IsomericSmiles, CID, InChIKey, MolecularFormula, and MolecularWeight:
+`efetch` returned the CID record data as document summary XML format (for other formats see `efetch -help`). XML is certainly useful, but we probably want to parse the data into a table for easier viewing and data analysis. EDirect contains a function called `xtract` that can convert the Entrez XML data into tables. See `xtract -help` for more information. In brief, you will need to select a main XML heading tag to define the extract pattern and then specify the data you want to extract with the sub-heading tag names. For example, in the above CID record data, we can set the pattern to DocumentSummary (the first main XML tag in this case), and then the elements to a few of the sub-heading tags we are interested such as IsomericSmiles, CID, InChIKey, MolecularFormula, and MolecularWeight:
 
 ```console
 
@@ -784,7 +784,7 @@ user@computer:~$ esearch -email name@xx.edu -db pcassay -query "1236573"[UID] | 
 
 </DocumentSummarySet>
 ```
-Similarly to the PubChem Compound and PubMed data, we can extract out specific data using `xtract` such as the AID, CurrentSourceName, AssayName, ActiveSidCount, and TargetCount:
+Similarly to the PubChem Compound and PubMed data, we can extract out specific data using the `xtract` function such as the AID, CurrentSourceName, AssayName, ActiveSidCount, and TargetCount:
 
 ```console
 
