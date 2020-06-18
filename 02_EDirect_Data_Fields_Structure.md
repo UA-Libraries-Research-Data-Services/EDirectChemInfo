@@ -1,4 +1,4 @@
-# Available EDirect Data Fields and Data Structures
+# Available EDirect Databases, Data Fields, and Data Structures
 
 **Notes**
 
@@ -6,7 +6,57 @@
 > 2. `user@computer:~$` represents an example terminal prompt name. Command/argument input is after the `$`.
 > 3. `\` followed by `>` on the next line represents continued terminal input.
 
-Before getting too far, it is helpful to understand the available indexed search fields, related links, and returned data format. We can see the available fields and links (connected records) with the `einfo` application. For example, if we are interested in the PubChem Compound (pccompound) database:
+We can view available Entrez databases, data fields, and links (connected records) with the EDirect `einfo` application. To retrieve a list of all databases, use the `-dbs` argument:
+
+```console
+
+user@computer:~$ einfo -email name@xx.edu -dbs
+annotinfo
+assembly
+biocollections
+bioproject
+biosample
+biosystems
+blastdbinfo
+books
+cdd
+clinvar
+dbvar
+gap
+gapplus
+gds
+gene
+genome
+geoprofiles
+grasp
+gtr
+homologene
+ipg
+medgen
+mesh
+ncbisearch
+nlmcatalog
+nuccore
+nucleotide
+omim
+orgtrack
+pcassay
+pccompound
+pcsubstance
+pmc
+popset
+protein
+proteinclusters
+pubmed
+seqannot
+snp
+sparcle
+sra
+structure
+taxonomy
+```
+
+This EDirectChemInfo repository mostly focuses on searching the PubChem Compound, PubMed, and PubChem BioAssay databases. So let's take a closer look at these three databases, starting with the PubChem Compound (pccompound) database. The `einfo` arguments `-fields` and `-links` provide information about the available data fields and linked information, respectively:
 
 ```console
 
