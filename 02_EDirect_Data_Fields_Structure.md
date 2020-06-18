@@ -5,6 +5,7 @@
 > 1. Replace `name@xx.edu` with your email address.
 > 2. `user@computer:~$` represents an example terminal prompt name. Command/argument input is after the `$`.
 > 3. `\` followed by `>` on the next line represents continued terminal input.
+> 4. You should validate your own EDirect scripts and results as there may be unintentional mistakes in these recipes!
 
 We can view available Entrez databases, data fields, and links (connected records) with the EDirect `einfo` function. To retrieve a list of all databases, use the `-dbs` argument:
 
