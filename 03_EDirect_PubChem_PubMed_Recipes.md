@@ -1,4 +1,4 @@
-# PubChem <--> PubMed EDirect Recipes
+# PubChem <--> PubChem BioAssay <--> PubMed EDirect Recipes
 
 **Notes**
 
@@ -6,7 +6,10 @@
 > 2. `user@computer:~$` represents an example terminal prompt name. Command/argument input is after the `$`.
 > 3. `\` followed by `>` on the next line represents continued terminal input.
 
-### Retrieve Associated PubMed References from a PubChem Compound Search
+
+### PubChem
+
+> S01: PubChem Compound --> PubMed Citations
 
 ```console
 
