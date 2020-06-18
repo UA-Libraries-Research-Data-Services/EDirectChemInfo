@@ -105,7 +105,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID]
 
 ```
 
-We searched PubChem for the Compound Identifier 512323 using `esearch`, and the NCBI Entrez server returned a summary of the search results. The WebEnV and QueryKey specify the location of the search results on the NCBI server. In order to retrieve the data, we can pipe (|) the `esearch` results directly into the `efetch` application:
+We searched PubChem for the Compound Identifier 512323 using `esearch`, and the NCBI Entrez server returned a summary of the search results. The WebEnV and QueryKey specify the location of the search results on the NCBI server. In order to retrieve the data, we can pipe, `|`, the `esearch` results directly into the `efetch` application:
 
 ```console
 
@@ -191,13 +191,12 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID] | 
 
 ```console
 
-esearch -email name@xx.edu -db pccompound -query 512323[UID] | \
+user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID] | \
 > efetch -format docsum | \
 > xtract -pattern DocumentSummary -element IsomericSmiles CID InChIKey MolecularFormula MolecularWeight
 C1[C@@H]([C@H](O[C@H]1N2C=C(C(=O)NC2=O)C3=CC=CS3)CO)O	512323	PCDQBRGMSMVLDZ-IQJOONFLSA-N	C13H14N2O5S	310.330
 
 ```
-
 Similarly to PubChem Compound, let's preview the available PubMed database indexed fields, links, and data structure:
 
 ```console
@@ -607,3 +606,142 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "17630804"[PMID] |
 
 ```
 Note that in the above `xtract` argument, the element selection is specified with `-first`, so that only the first occurrence is extracted (e.g., first Author).
+
+Lastly, let's take a look at the PubChem BioAssay database indexed fields, links, and data structure:
+
+```console
+
+user@computer:~$ einfo -email name@xx.edu -db pcassay -fields
+AC	Active Sid Count
+ACMD	Activity Outcome Method
+ACMT	Assay Comment
+ADES	Assay Description
+ALL	All Fields
+ANAM	Assay Name
+APRJ	Assay Project
+APRL	Assay Protocol
+ASRD	Assay Source ID
+BSID	BioSystems ID
+CCMT	Categorized Comment
+CCT	Categorized Comment Title
+CELL	Cell Line
+CSNM	Current Source Name
+DDAT	Deposit Date
+DTMD	Detection Method
+FILT	Filter
+GBAC	GenBank Accession
+GRN	Grant Number
+GSYM	Gene Symbol
+HDAT	Hold Until Date
+JNAM	Journal Name
+MDAT	Modify Date
+NARD	Nucleic Acid Reagent ID
+NSAM	Number of Sids With Activity Concentration micromolar
+NSAN	Number of Sids With Activity Concentration nanomolar
+ORGN	Organism
+PCC	Probe Cid Count
+PIGI	Pig GI
+PSC	Probe Sid Count
+PTGI	Protein Target GI
+PTN	Protein Target Name
+RTGI	RNA Target GI
+SNME	Source Name
+SRCC	Source Category
+SYNT	Synonym Tested
+TCNT	Target Count
+TSC	Total Sid Count
+TXNM	Taxonomy Name
+UID	Assay ID
+UPAC	UniProt Accession
+
+user@computer:~$ einfo -email name@xx.edu -db pcassay -links
+pcassay_books_probe	MLP Chemical Probe Report
+pcassay_cdd_protein_target	Conserved Domains (Full) via Protein Target
+pcassay_gene_rnai	RNAi Target, Tested
+pcassay_gene_rnai_active	RNAi Target, Active
+pcassay_gene_target	Gene Target
+pcassay_nuccore	Nucleotide
+pcassay_nuccore_rna_target	Nucleotide RNA Target
+pcassay_omim	OMIM
+pcassay_pcassay_activityneighbor_list	Related BioAssays, by Activity Overlap (List)
+pcassay_pcassay_assay_project	Related Assay Projects
+pcassay_pcassay_common_gene_list	Related BioAssays, by Common Active Gene (List)
+pcassay_pcassay_gene_interaction_list	Related BioAssays, by Gene Interaction (List)
+pcassay_pcassay_neighbor_list	Related BioAssays, by Depositor (List)
+pcassay_pcassay_same_assay_project_list	Related BioAssays, by Same Project (List)
+pcassay_pcassay_same_publication_list	Related BioAssays, by Same Publication (List)
+pcassay_pcassay_similar_publication_list	Related BioAssays, by Similar Publication (List)
+pcassay_pcassay_targetneighbor_list	Related BioAssays, by Target Similarity (List)
+pcassay_pccompound	Compounds
+pcassay_pccompound_active	Compounds, Active
+pcassay_pccompound_activityconcmicromolar	Compounds, activity concentration at/below 1 uM
+pcassay_pccompound_activityconcnanomolar	Compounds, activity concentration at/below 1 nM
+pcassay_pccompound_inactive	Compounds, Inactive
+pcassay_pccompound_probe	Compounds, Probe
+pcassay_pcsubstance	Substances
+pcassay_pcsubstance_active	Substances, Active
+pcassay_pcsubstance_activityconcmicromolar	Substances, activity concentration at/below 1 uM
+pcassay_pcsubstance_activityconcnanomolar	Substances, activity concentration at/below 1 nM
+pcassay_pcsubstance_inactive	Substances, Inactive
+pcassay_pcsubstance_probe	Substances, Probe
+pcassay_pmc	PMC Articles
+pcassay_probe	Nucleic acid reagent
+pcassay_protein_target	Protein Target
+pcassay_protein_target_pig	Protein Target, Identical Sequence
+pcassay_pubmed	PubMed Citations
+pcassay_sparcle_target	Target Functional Class
+pcassay_structure	Protein Structures
+pcassay_taxonomy	Taxonomy
+```
+
+And here is an example PubChem BioAssay record in docsum XML:
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pcassay -query "1236573"[UID] | \
+> efetch -format docsum
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE DocumentSummarySet PUBLIC "-//NLM//DTD esummary pcassay 20161116//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20161116/esummary_pcassay.dtd">
+
+<DocumentSummarySet status="OK">
+<DbBuild>Build200617-0952.1</DbBuild>
+
+<DocumentSummary><Id>1236573</Id>
+	<AssayName>Cytotoxicity against human NCI/ADR cells</AssayName>
+	<CellLine></CellLine>
+	<AssayDescription>Title: Progress Toward the Development of Noscapine and Derivatives as Anticancer Agents.  Abstract: Many nitrogen-moiety containing alkaloids derived from plant origins are bioactive and play a significant role in human health and emerging medicine. Noscapine, a phthalideisoquinoline alkaloid derived from Papaver somniferum, has been used as a cough suppressant since the mid 1950s, illustrating a good safety profile. Noscapine has since been discovered to arrest cells at mitosis, albeit with moderately weak activity. Immunofluorescence staining of microtubules after 24 h of noscapine exposure at 20  inverted question markM elucidated chromosomal abnormalities and the inability of chromosomes to complete congression to the equatorial plane for proper mitotic separation ( Proc. Natl. Acad. Sci. U. S. A. 1998 , 95 , 1601 - 1606 ). A number of noscapine analogues possessing various modifications have been described within the literature and have shown significantly improved antiprolific profiles for a large variety of cancer cell lines. Several semisynthetic antimitotic alkaloids are emerging as possible candidates as novel anticancer therapies. This perspective discusses the advancing understanding of noscapine and related analogues in the fight against malignant disease. </AssayDescription>
+	<AssaySourceID>1506980</AssaySourceID>
+	<SourceNameList>
+		<string>ChEMBL</string>
+	</SourceNameList>
+	<CurrentSourceName>ChEMBL</CurrentSourceName>
+	<DetectionMethod></DetectionMethod>
+	<ActiveSidCount>1</ActiveSidCount>
+	<ActivityOutcomeMethod>Confirmatory</ActivityOutcomeMethod>
+	<TotalSidCount>1</TotalSidCount>
+	<OnHold>No</OnHold>
+	<ModifyDate>2018/10/08 00:00</ModifyDate>
+	<DepositDate>2016/12/22 00:00</DepositDate>
+	<HoldUntilDate>1/01/01 00:00</HoldUntilDate>
+	<AID>1236573</AID>
+	<ProbeSidCount>0</ProbeSidCount>
+	<TargetCount>0</TargetCount>
+	<NumberofSidsWithActivityConcmicromolar>1</NumberofSidsWithActivityConcmicromolar>
+	<NumberofSidsWithActivityConcnanomolar>1</NumberofSidsWithActivityConcnanomolar>
+	<ProteinTargetList>
+	</ProteinTargetList>
+</DocumentSummary>
+
+</DocumentSummarySet>
+```
+Similarly to the PubChem Compound and PubMed data, we can extract out specific data using `xtract` such as the AID, CurrentSourceName, AssayName, ActiveSidCount, and TargetCount:
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pcassay -query "1236573"[UID] | \
+> efetch -format docsum | \
+> xtract -pattern DocumentSummary -element AID CurrentSourceName AssayName ActiveSidCount TargetCount
+1236573	ChEMBL	Cytotoxicity against human NCI/ADR cells	1	0
+```
+
+
