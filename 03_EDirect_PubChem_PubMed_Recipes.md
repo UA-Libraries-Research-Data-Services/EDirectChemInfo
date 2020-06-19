@@ -381,10 +381,53 @@ _tested on 2020.06.17, total count was 3302 (returns all PMIDs, not all have lin
 The first column contains the PMIDs and the second column contains the linked PubChem CIDs (from the pubmed_pccompound links). As an aside, the PubMed query for the University of Alabama in the affiliation field [AFFL] excludes any results containing huntsville or birmingham in the affiliation. This was an attempt to only retrieve The University of Alabama (Tuscaloosa) records. It's not a perfect search, but gets us close.
 
 **PubMed --> PubChem BioAssay**\
-**Description:**
+**Description:** Search PubMed for an article, find related PubChem BioAssays, then retrieve some BioAssay data.
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pubmed -query "32459468"[PMID] | \
+> elink -target pcassay -name pubmed_pcassay | \
+> efetch -format docsum | \
+> xtract -pattern DocumentSummary -element AID CurrentSourceName AssayName ActiveSidCount TargetCount
+1347414	National Center for Advancing Translational Sciences (NCATS)	qHTS to identify inhibitors of the type 1 interferon - major histocompatibility complex class I in skeletal muscle: Secondary screen by immunofluorescence	0	1
+1347412	National Center for Advancing Translational Sciences (NCATS)	qHTS assay to identify inhibitors of the type 1 interferon - major histocompatibility complex class I in skeletal muscle: Counter screen cell viability and HiBit confirmation	0	1
+1347415	National Center for Advancing Translational Sciences (NCATS)	qHTS to identify inhibitors of the type 1 interferon - major histocompatibility complex class I in skeletal muscle: tertiary screen by RT-qPCR	34	1
+1347413	National Center for Advancing Translational Sciences (NCATS)	qHTS to identify inhibitors of the type 1 interferon - major histocompatibility complex class I in skeletal muscle: tertiary screen by RT-qPCR, retest select compounds	3	1
+...
+```
+_tested on 2020.06.19, total count was 7._
 
 **PubMed <--> PubChem BioAssay**\
-**Description**:
+**Description**: Search PubMed for an article, find cited articles, then related PubChem BioAssays.
+
+If we want to retrieve the PMID <--> AID relationships (for Entrez link `pubmed_pcassay`), we can achieve this using the `-cmd neighbor` option in `elink`. Note that here we queried PubMed for an article, then found the cited articles with `elink -cited`, before piping these results into the Entrez link `pubmed_pcassay`.
+
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pubmed -query "17876319"[PMID] | \
+> elink -cited | \
+> elink -target pcassay -name pubmed_pcassay -cmd neighbor | \
+> xtract -pattern LinkSet -element Id
+...
+21167154
+21164511
+21159777
+21138309	568760	568754	568753	568763	568762	568761	568759	568758	568757	568756	568755
+21131971
+21129186
+21056617
+20956805
+20950272
+20932746	977611	977608	527862	527860	527856	527855	527854	527861	527859	527858	527857
+20708627
+20682773
+20665611
+...
+
+_tested on 2020.06.19, total count was 347 (returns all PMIDs, not all have linked AIDs)._
+
+In the above table, the first column contains the PMIDs, subsequent columns contain the linked BioAssays (AIDs).
 
 ### PubChem BioAssay
 
