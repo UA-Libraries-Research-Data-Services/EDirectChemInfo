@@ -10,7 +10,7 @@
 ### PubChem
 
 **PubChem Compound --> PubMed Citations**\
-**Description: Search for a CID in the PubChem Compound Database and retrieve related PubMed citations**
+**Description:** Search for a CID in the PubChem Compound Database and retrieve related PubMed citations.
 
 In the below script, we use the `esearch` function to query the PubChem Compound database (`pccompound`) for CID 174076 within the Compound ID field, `[uid]`. The `esearch` results are then piped to `elink` finding related PubMed citations via the Entrez link `pccompound_pubmed`. Finally, we retrieve the results with `efetch` in xml format and extract out some bibliographic reference information using the `xtract` function.
 
@@ -33,7 +33,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | 
 _tested on 2020.06.17, total count was 102._
 
 **PubChem Compound --> PubMed Citations (with filtering)**\
-**Description: Search for CID in PubChem Compound Database, find related PubMed citations, then only retrieve references from a specific journal.**
+**Description:** Search for CID in PubChem Compound Database, find related PubMed citations, then only retrieve references from a specific journal.
 
 We can filter `elink` results with `efilter` to only include PubMed citations (Entrez linked via `pccompound_pubmed`) to the CID but also matching a specific PubMed query. For example, if we are only interested in linked _Phys Chem Chem Phys_ references to CID 174076, we can use the journal field [JOUR] in an `efilter` query:
 
@@ -56,7 +56,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | 
 _tested on 2020.06.17, total count was 11._
 
 **PubChem Compound --> PubMed MeSH (with filtering)**\
-**Description: Search for a CID in PubChem Compound, find related PubMed records via MeSH, and retrieve only references that contain the MeSH subheading "chemical synthesis".**
+**Description:** Search for a CID in PubChem Compound, find related PubMed records via MeSH, and retrieve only references that contain the MeSH subheading "chemical synthesis".
 
 This is my favorite literature search: start with a PubChem CID and then find PubMed literature related to its synthesis. Similarly to the search above, we can filter out references using an `efilter` query for 'chemical synthesis' as a MeSH subheading [SUBH]. Note that we used the `pccompound_pubmed_mesh` Entrez link as the `elink` target name here.
 
@@ -80,7 +80,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 94257[uid] | \
 _tested on 2020.06.17, total count was 8._
 
 **PubChem Compound --> PubMed Citations OR PubMed MeSH**\
-**Description: Search for CID in PubChem Compound, find related PubMed citations and related PubMed via MeSH.**
+**Description:** Search for CID in PubChem Compound, find related PubMed citations and related PubMed via MeSH.
 
 It appears that you can combine `elink` queries, with either the same Entrez link or a different Entrez link, but within the same database. For example, if we want to retrieve PubMed literature related to PubChem CID 174076 for both the `pccompound_pubmed` and `pccompound_pubmed_mesh` Entrez links in one dataset, we combine two separate `elink` queries with an OR operator:
 
@@ -109,7 +109,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | 
 _tested on 2020.06.17, total count was 314._
 
 **PubChem Substance --> PubChem Compound --> PubMed Publisher**\
-**Description: Search for a PubChem Substance Data Source Depositor, find related same PubChem compounds, and then retrieve related PubMed references linked via publisher.**
+**Description:** Search for a PubChem Substance Data Source Depositor, find related same PubChem compounds, and then retrieve related PubMed references linked via publisher.
 
 In the below script, we first search the PubChem Substance (`pcsubstance`) database using `esearch` for the data source depositor _Nature Communications_. We can use the Current Source Name `[CSN]` field for this query. Note that an underscore is put in place of the space in the query. This syntax is important for searching in PubChem with the EDirect `esearch` function. After `esearch`, we pipe the results into `elink` twice, first finding related PubChem Compounds via the `pcsubstance_pccompound_same` Entrez link, and then using this new result list to find related PubMed publisher deposited citations from the `pccompound_pubmed_publisher` Entrez link. Finally, similarly to previous searches, we use a combination of `efetch` and `xtract` to retrieve selected data:
 
@@ -138,7 +138,7 @@ user@computer:~$ esearch -email name@xx.edu -db pcsubstance -query "nature_commu
 _tested on 2020.06.17, total count was 101._
 
 **PubChem Substance --> PubChem Compound <--> PubMed Publisher**\
-**Description: Search for a PubChem Substance Data Source Depositor, find related same PubChem compounds, and then retrieve related PubMed PMIDs linked via publisher.**
+**Description:** Search for a PubChem Substance Data Source Depositor, find related same PubChem compounds, and then retrieve related PubMed PMIDs linked via publisher.
 
 Building upon the previous search, if needed, it is possible to obtain individual relationships of the CIDs to PubMed IDs (CID <--> PMID). We can do this using the `-cmd neighbor` option in `elink`:
 
@@ -168,7 +168,7 @@ _tested on 2020.06.17, total count was 1594 (returns all CIDs, not all have link
 The first column contains the PubChem CIDs and the second column contains the linked PMIDs. Additional linked PMIDs are placed in subsequent columns when available.
 
 **PubChem Compound --> PubChem BioAssay**\
-**Description: Search for a PubChem CID in PubChem Compound, then retrieve related PubChem active BioAssay data.**
+**Description:** Search for a PubChem CID in PubChem Compound, then retrieve related PubChem active BioAssay data.
 
 To retrieve BioAssay results labeled as 'Active' that are linked to a CID, we can use the `elink` function with the PubChem BioAssay (`pcassay`) database via Entrez link `pccompound_pcassay_active`. This is followed by `efetch` and `xtract`. In this particular example, we extracted the AID, CurrentSourceName, AssayName, ActiveSidCount, and TargetCount:
 
@@ -193,7 +193,7 @@ _tested on 2020.06.18, total count was 43._
 
 
 **PubChem Compound <--> PubChem BioAssay**\
-**Description: Search for PubChem CID in PubChem Compound Database, find related compounds with same connectivity, then retrieve related AIDs for each CID.**
+**Description:** Search for PubChem CID in PubChem Compound Database, find related compounds with same connectivity, then retrieve related AIDs for each CID.
 
 It is possible to obtain individual relationships of the CIDs to BioAssay AIDs (CID <--> AID). We can do this using the `-cmd neighbor` option in `elink`. Note that we first found related compounds with same connectivity using the Entrez link `pccompound_pccompound_sameconnectivity_pulldown`. This step was followed by the `pccompound_pcassay_active` Entrez link in the PubChem BioAssay database to retrieve AID links to the CIDs. We used the 'Active' assay links here, note that there are also other Entrez PubChem Compound assay links such as inactive, `pccompound_pcassay_inactive`.
 
@@ -217,7 +217,7 @@ _tested on 2020.06.18, total count was 20 CIDs (not all have associated AIDs)._
 ### PubMed
 
 **PubMed --> PubChem Compound**\
-**Description: Search for a PubMed article ID (PMID), then retrieve related PubChem Compounds.**
+**Description:** Search for a PubMed article ID (PMID), then retrieve related PubChem Compounds.
 
 In the below script, we first use `esearch` to query PubMed for the article ID 29407984 in the `[PMID]` field. This result is then piped into `elink` to retrieve linked compounds in the PubChem Compound database (`pubmed_pccompound`). In this case, there was one compound and we used `efetch` to retrieve the CID record as docsum XML, followed by `xtraxt` to extract the IsomericSmiles, CID, and InChIKey values. 
 
@@ -233,7 +233,7 @@ C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O	2764	MYSWGUAQZAJSOK-UHFFFAOYSA-
 _tested on 2020.06.17, total count was 1._
 
 **PubMed --> PubChem Compound (+ mixtures)**\
-**Description: Search for a PubMed article ID (PMID), then retrieve linked PubChem Compound mixtures/components.**
+**Description:** Search for a PubMed article ID (PMID), then retrieve linked PubChem Compound mixtures/components.
 
 In this script, an additional `elink` search is added to find related PubChem Mixture/Component compounds via Entez link `pccompound_pccompound_mixture`.
 
@@ -257,7 +257,7 @@ C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O.C1=CC=NC(=C1)C2=CC(=CC(=N2)C3=C
 _tested on 2020.06.17, total count was 364._
 
 **PubMed --> PubChem Compound (MESH search)**\
-**Description: Search PubMed with a text query, then retrieve linked PubChem Compounds.**
+**Description:** Search PubMed with a text query, then retrieve linked PubChem Compounds.
 
 We can also perform text queries in PubMed and retrieve linked PubChem Compounds. Note that in the below script we searched for "ionic liquids" in the `[MESH]` field and Imidazolium in any field. Since this query requires two pairs of quotes, we have to escape the internal quotes in order for the query to be interpreted correctly. The Entrez link `pubmed_pccompound` was used to find related PubChem compounds.
 
@@ -283,7 +283,7 @@ CCN1C=C[N+](=C1C2=[N+](C=CN2C)C)C	91502560	XLXYOCMOYFVXPU-UHFFFAOYSA-N
 _tested on 2020.06.17, total count was 395._
 
 **PubMed --> PubChem Compound (MESH search, and a PubChem filter)**\
-**Description: Search PubMed with a text query and retrieve only linked compounds containing defined chiral atoms.**
+**Description:** Search PubMed with a text query and retrieve only linked compounds containing defined chiral atoms.
 
 We can also perform some powerful filtering with `efilter`. In the below script, the `[ACDC]` field is the defined atom chiral count in PubChem. A range of 1 through 100 was added for this `[ACDC]` filter. Since it is unlikely that any of the compounds would have near 100 chiral atoms, we can be fairly confident this should capture all cases in our search.
 
@@ -309,7 +309,7 @@ CC(C)[C@H]1CC[C@H]2[C@H](C1)CC[C@@H]3[C@@]2(CCCC3(C)C)C	6857485	STIVVCHBLMGYSL-Z
 _tested on 2020.06.17, total count was 43._
 
 **PubMed --> PubChem Compounds + PubChem Compounds (MeSH) + PubChem Compounds (Publisher)**\
-**Description: Search PubMed, then find linked PubChem Compounds, PubChem Compounds via PubMed MeSH, and PubChem Compound PubMed Publisher.**
+**Description:** Search PubMed, then find linked PubChem Compounds, PubChem Compounds via PubMed MeSH, and PubChem Compound PubMed Publisher.
 
 As seen in the previous PubChem searches, there are several Entrez linkouts from PubMed to PubChem Compound such as pubmed_pccompound, pubmed_pccompound_mesh, pubmed_pccompound_publisher. We can retrieve associated compounds from all three at the same time like this:
 
@@ -341,7 +341,7 @@ C1=CC=C2C(=C1)C(=O)NC=N2	135408753	QMNUDYFKZYBWQX-UHFFFAOYSA-N
 _tested on 2020.06.17, total count was 536._
 
 **PubMed <--> PubChem Compound**\
-**Description: Search PubMed for an affiliation, find related PubChem Compounds, then retrieve related CIDs for each PMID.**
+**Description:** Search PubMed for an affiliation, find related PubChem Compounds, then retrieve related CIDs for each PMID.
 
 If we want to retrieve the PMID <--> CID relationships (for Entrez link `pubmed_pccompound`), we can achieve this using the `-cmd neighbor` option in `elink`:
 
@@ -398,7 +398,7 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "32459468"[PMID] |
 _tested on 2020.06.19, total count was 7._
 
 **PubMed <--> PubChem BioAssay**\
-**Description**: Search PubMed for an article, find cited articles, then related PubChem BioAssays.
+**Description:** Search PubMed for an article, find cited articles, then related PubChem BioAssays.
 
 If we want to retrieve the PMID <--> AID relationships (for Entrez link `pubmed_pcassay`), we can achieve this using the `-cmd neighbor` option in `elink`. Note that here we queried PubMed for an article, then found the cited articles with `elink -cited`, before piping these results into the Entrez link `pubmed_pcassay`.
 
@@ -424,7 +424,7 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "17876319"[PMID] |
 20682773
 20665611
 ...
-
+```
 _tested on 2020.06.19, total count was 347 (returns all PMIDs, not all have linked AIDs)._
 
 In the above table, the first column contains the PMIDs, subsequent columns contain the linked BioAssays (AIDs).
@@ -432,12 +432,86 @@ In the above table, the first column contains the PMIDs, subsequent columns cont
 ### PubChem BioAssay
 
 **PubChem BioAssay --> PubMed**\
-**Description**:
+**Description:** Search PubChem BioAssay for assays from a specific source name and then find related PubMed literature.
+
+In the below script, we first use `esearch` to query PubChem BioAssay for IUPHAR/BPS_Guide_to_PHARMACOLOGY in the `[SNME]` Source Name field. This result is then piped into `elink` to retrieve linked records in the PubMed database (`pcassay_pubmed`). The `efilter` function was used to limit the results to the last 5 years. This resulted in 332 record, and we used `efetch` to retrieve the PubMed records as XML, followed by `xtraxt` to extract out some bibliogrpahic information.
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pcassay -query "IUPHAR/BPS_Guide_to_PHARMACOLOGY"[SNME] | \
+> elink -target pubmed -name pcassay_pubmed | \
+> efilter -mindate 2015 -maxdate 2020 -datetype PDAT | \
+> efetch -format xml | \
+> xtract -pattern PubmedArticle -element MedlineCitation/PMID -first Author/LastName \
+> Author/Initials ISOAbbreviation PubDate/Year Volume Issue MedlinePgn
+29722898	Fu	R	Br. J. Pharmacol.	2018	175	14	3034-3049
+29688582	Kato	M	Br J Clin Pharmacol	2018	84	8	1821-1829
+29683659	Pike	KG	J. Med. Chem.	2018	61	9	3823-3841
+29674331	Kawaharada	S	J. Pharmacol. Exp. Ther.	2018	366	1	58-65
+29672049	Gucký	T	J. Med. Chem.	2018	61	9	3855-3869
+29620892	Nikolaou	A	J. Med. Chem.	2018	61	8	3697-3711
+29615471	Xu	X	J. Pharmacol. Exp. Ther.	2018	365	3	624-635
+29608575	Taylor Meadows	KR	PLoS ONE	2018	13	4	e0193236
+...
+```
+_tested on 2020.06.19, total count was 332._
+
 
 **PubChem BioAssay --> PubChem Compound**\
-**Description**:
+**Description:** Search PubChem BioAssay for an assay, find related PubChem Compounds, and retrieve some property data for the compounds.
+
+In the below script, we first use `esearch` to query PubChem BioAssay for the assay ID 527855 in the `[UID]` field. This result is then piped into `elink` to retrieve linked compounds in the PubChem Compound database (`pcassay_pccompound`). In this case, there were 16 compounds and we used `efetch` to retrieve the CID records as docsum XML, followed by `xtraxt` to extract the IsomericSmiles, CID, HydrogenBondDonorCount, HydrogenBondAcceptorCount, MolecularWeight, and XLogP values.
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pcassay -query "527855"[UID] | \
+> elink -target pccompound -name pcassay_pccompound | \
+> efetch -format docsum | \
+> xtract -pattern DocumentSummary -element IsomericSmiles CID HydrogenBondDonorCount HydrogenBondAcceptorCount \
+> MolecularWeight XLogP
+CN(CC1=CC=CC=C1)C(=O)C2=C(NC(=N2)C3=CC=CC=C3)C(=O)O	52949178	2	4	335.400	2.9
+C1=CC=C(C=C1)CCN(CC2=CC=CC=C2)C(=O)C3=C(NC(=N3)C4=CC=CC=C4)C(=O)O	52948352	2	4	425.500	4.8
+CN(CC(=O)O)C(=O)C1=C(NC(=N1)C2=CC=CC=C2)C(=O)O	52947957	3	6	303.270	1
+C1=CC=C(C=C1)CNC(=O)C2=C(NC(=N2)C3=CC=CC=C3)C(=O)O	52946755	3	4	321.300	2.7
+CCOC(=O)CN(CC1=CC=CC=C1)C(=O)C2=C(NC(=N2)C3=CC=CC=C3)C(=O)O	52945544	2	6	407.400	3.2
+C1=CC=C(C=C1)CN(CC2=CC=CC=C2)C(=O)C3=C(NC(=N3)C4=CC(=CC=C4)Cl)C(=O)O	52944295	2	4	445.900	5
+CCNC(=O)C1=C(NC(=N1)C2=CC=CC=C2)C(=O)O	52941818	3	4	259.260	1.6
+CNC(=O)C1=C(NC(=N1)C2=CC=CC=C2)C(=O)O	52941817	3	4	245.230	1.2
+...
+```
+_tested on 2020.06.22, total count was 16._
 
 **PubChem BioAssay <--> PubChem Compound**\
-**Description**:
+**Description:** Search PubChem BioAssay for an assay, find related assays based on similar publications, then find related PubChem Compounds.
 
+If we want to retrieve the AID <--> CID relationships (for Entrez link `pcassay_pccompound`), we can achieve this using the `-cmd neighbor` option in `elink`. Here we queried PubChem BioAssay for an assay, then found related assays by similar publication list using `elink` (`pcassay_pcassay_similar_publication_list`). This result was then piped into the Entrez link `pcassay_pccompound`.
+
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pcassay -query "527855"[UID] | \
+> elink -target pcassay -name pcassay_pcassay_similar_publication_list | \
+> elink -target pccompound -name pcassay_pccompound -cmd neighbor | \
+> xtract -pattern LinkSet -element Id
+1186737	11689942
+1186736	11689942
+1186735	11689942
+1186734	11689942
+1186733	11689942
+1186732	11689942	11655448	11590467	11510716
+1186731	118719547	11718765	11689343	11510199
+1186730	118719547	11718765	11689343	11510199
+1186729	118719547	11718765	11689343	11510199
+1186728	118719547	118709966	118709965	118709964	118709963	118709962	118709961	118709960	118709959	11718765	11689942	11689343	11675244	11655448	11590467	11581756	11510716	11510199
+1175274	118722473	118722472	118722471	118722470	118722469	118722468	118722467	118722466	118722465	118722464	118722463	118722462	118722461	15559100	3806
+761672	643974
+761671	643974
+761670	73355112	46191373	16093564	11418384	11234712	11181229	69762
+...
+```
+
+In the above table, the first column contains the AIDs, subsequent columns contain the linked PubChem Compounds (CIDs).
+
+
+_tested on 2020.06.22, total count was 81 (returns all AIDs, not all have linked CIDs)._
 
