@@ -16,7 +16,7 @@ The University of Alabama\
   * [Usage Tips](https://github.com/vfscalfani/EDirectChemInfo/blob/master/01_EDirect_Intro.md#usage-tips)
   * [EDirect Function Help](https://github.com/vfscalfani/EDirectChemInfo/blob/master/01_EDirect_Intro.md#e-utility-application-help)
 * [Available Databases, Data Fields, and Data Structures](https://github.com/vfscalfani/EDirectChemInfo/blob/master/02_EDirect_Data_Fields_Structure.md)
-* [PubChem <--> PubChem BioAssay <--> PubMed EDirect Recipes](https://github.com/vfscalfani/EDirectChemInfo/blob/master/03_EDirect_PubChem_PubMed_Recipes.md)
+* [PubChem <--> PubChem BioAssay <--> PubMed EDirect Recipes](https://github.com/vfscalfani/EDirectChemInfo/blob/master/03_EDirect_PubChem_BioAssay_PubMed_Recipes.md)
 * [PubChem EDirect Recipes](https://github.com/vfscalfani/EDirectChemInfo/blob/master/04_EDirect_PubChem_Recipes.md)
 * [PubMed EDirect Recipes](https://github.com/vfscalfani/EDirectChemInfo/blob/master/05_EDirect_PubMed_Recipes.md)
 * [Combining EDirect Results with Chemical Depiction and Plotting](https://github.com/vfscalfani/EDirectChemInfo/blob/master/06_EDirect_Combining_Tools.md)
