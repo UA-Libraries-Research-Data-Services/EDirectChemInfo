@@ -139,6 +139,7 @@ __|Si_ |  |     ____
    ____/        
 
 ...
+24 molecules converted
 ```
 
 You can save depictions in a more classic PNG file using Open Babel with either a single molecule:
@@ -152,7 +153,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "13586"[UID] |
 1 molecule converted
 ```
 
-![openbabel01](/images/openbabel01.png)
+![obabel01](/images/obabel01.png)
 
 
 or multiple molecules in a matrix:
@@ -166,7 +167,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "132427739"[UI
 > openbabel.obabel -ismi -O 132427739_similar.png -xp 1400
 24 molecules converted
 
-![openbabel02](/images/openbabel02.png)
+![obabel02](/images/obabel02.png)
 
 _Tested with Open Babel v3.0.0 installed from Snap. I did receive a Font Configuration error when saving the PNG files, however, the conversion seemed to work fine._
 
