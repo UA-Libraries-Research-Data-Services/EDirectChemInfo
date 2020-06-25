@@ -166,6 +166,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "132427739"[UI
 > xtract -pattern DocumentSummary -element IsomericSmiles CID | \
 > openbabel.obabel -ismi -O 132427739_similar.png -xp 1400
 24 molecules converted
+```
 
 ![obabel02](/images/obabel02.png)
 
