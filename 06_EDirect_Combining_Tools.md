@@ -1,4 +1,4 @@
-# Combining EDirect Results with Chemical Depiction and Plotting (gnuplot)
+# Combining EDirect Results with Chemical Depiction and Plotting
 
 **Notes**
 
