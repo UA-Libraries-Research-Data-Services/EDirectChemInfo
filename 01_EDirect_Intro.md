@@ -1,6 +1,6 @@
 # What is EDirect?
 
-EDirect is a Unix command line tool from NCBI that allows programmatic retrieval of chemical/biological data and literature references from NCBI databases. EDirect reduces the barrier to accessing NCBI data programmatically; that is, with a basic knowledge of the Unix shell (e.g., bash), it is straightforward to obtain and format your own custom dataset, often with a single line of code. Moreover, you can input data retrieved from EDirect into other Unix tools for quick viewing and analysis ([Pipeline (Unix)](https://en.wikipedia.org/wiki/Pipeline_(Unix)).
+EDirect is a Unix command line tool from NCBI that allows programmatic retrieval of chemical/biological data and literature references from NCBI databases. EDirect reduces the barrier to accessing NCBI data programmatically; that is, with a basic knowledge of the Unix shell (e.g., bash), it is straightforward to obtain and format your own custom dataset, often with only a few lines of code. Moreover, you can input data retrieved from EDirect into other Unix tools for quick viewing and analysis ([Pipeline (Unix))](https://en.wikipedia.org/wiki/Pipeline_(Unix)).
 
 ## Installation Tips
 
@@ -20,7 +20,7 @@ If you do not follow NCBI's usage policies (e.g., no more than 3 requests per se
 user@computer:~$ e-function -email name@xx.edu -arg input
 
 ```
-Replace name@xx.edu with your email address. The `e-function` is a place holder for one of the actual EDirect functions like `einfo` or `esearch`, and `-arg input` is a placeholder for e-function argument(s) like `-db pccompound` or `-db pubmed -query "food allergies"`.
+Replace `name@xx.edu` with your email address. The `e-function` is a place holder for one of the actual EDirect functions like `einfo` or `esearch`, and `-arg input` is a placeholder for e-function argument(s) like `-db pccompound` or `-db pubmed -query "food allergies"`.
 
 ## EDirect Function Help
 
