@@ -7,13 +7,11 @@
 > 3. `\` followed by `>` on the next line represents continued terminal input. You will need to delete the `>` symbol in order to run the scripts as a copy/paste into terminal.
 > 4. You should validate your own EDirect scripts and results as there may be unintentional mistakes in these recipes. A convenient method is to compare your EDirect results to the NCBI Web interface search results: [https://www.ncbi.nlm.nih.gov/](https://www.ncbi.nlm.nih.gov/).
 
-## Chemical Depiction
-
-**Description:** Pipe received SMILES from EDirect into a Chemical Structure Viewer.
+## EDirect --> Chemical Depiction and Plots
 
 It is possible to pipe EDirect results into chemical structure viewers as some cheminformatics toolkits can read chemical file formats (e.g., SMILES) directly from standard input.
 
-### ChemAxon MarvinView
+### ChemAxon MarvinView Chemical Depiction
 
 For [ChemAxon Marvin](https://chemaxon.com/products/marvin), we can pipe EDirect compiled SMILES directly into Marvin View (`mview`). Note that the `-` is the `mview` option to read structures from standard input.
 
@@ -45,7 +43,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "132427739"[UI
 
 _tested with ChemAxon MarvinView version 19.27.0._
 
-### Open Babel
+### Open Babel Chemical Depiction
 
 One really cool feature of using [Open Babel](https://github.com/openbabel) is the ability to display molecules as ASCII figures directly in the terminal. Below, we pipe the results to Open Babel using the standard input smiles format, `-ismi`, and then output in ascii format, `-oascii`. The `-xh 10` is a resizing option.
 
@@ -172,7 +170,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "132427739"[UI
 
 _Tested with Open Babel v3.0.0 installed from Snap. I did receive a Font Configuration error when saving the PNG files, however, the conversion seemed to work fine._
 
-**Description:** Pipe Data from EDirect into gnuplot
+### gnuplot Data plotting
 
 [gnuplot](http://www.gnuplot.info/) is a command-line graphing program that allows plotting data from standard input. In gnuplot, there is an option called "dumb terminal" that creates plots using ASCII characters directly in the terminal window, which is convenient for initial analysis of compiled EDirect data. For example, here is some data related to the number of *J Cheminform* articles indexed in PubMed by publication date:
 

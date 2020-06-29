@@ -7,9 +7,9 @@
 > 3. `\` followed by `>` on the next line represents continued terminal input. You will need to delete the `>` symbol in order to run the scripts as a copy/paste into terminal.
 > 4. You should validate your own EDirect scripts and results as there may be unintentional mistakes in these recipes. A convenient method is to compare your EDirect results to the NCBI Web interface search results: [https://www.ncbi.nlm.nih.gov/](https://www.ncbi.nlm.nih.gov/).
 
-### PubChem Searching
+## PubChem EDirect
 
-**Description:** Search PubChem Compound via InChIKey and Retrieve Data
+### Search PubChem Compound via InChIKey and Retrieve Data
 
 In the below script, we first query the PubChem Compound database (`pccompound`) for "NJTXJDYZPQNTSM-WMZOPIPTSA-N" in the InChIKey (`[IKEY]`) field. Next, the record is retrieved in XML docsum and several properties are extracted with the `xtract` function including the IsomericSmiles, CID, InChIKey, and IUPACName.
 
@@ -23,7 +23,7 @@ C[C@]12CCC(=O)C=C1CCC[C@@H]2OC(=O)C3=CC=CC=C3	11044292	NJTXJDYZPQNTSM-WMZOPIPTSA
 _tested on 2020.06.23, total count was 1._
 
 
-**Description:** Search PubChem Compound with a list of CIDs and Retrieve Data
+### Search PubChem Compound with a list of CIDs and Retrieve Data
 
 If we have a small list of PubChem Compound Identifiers (CIDs) and need to retrieve specific data for each CID, we can write a for loop directly in the terminal. Note that in the below Bash script, I added a sleep of one second within the loop in an effort to not overload the NCBI servers.
 
@@ -50,7 +50,7 @@ user@computer:~$ for myCID in \
 _tested on 2020.06.22, total count was 5 (as expected in the for loop)._
 
 
-**Description:** Retrieve Pre-Computed Linked Similar Compounds
+### Retrieve Pre-Computed Linked Similar Compounds
 
 In the below script, we use the `esearch` function to query the PubChem Compound database (`pccompound`) for CID 11044292 within the Compound ID field, `[uid]`. The `esearch` results are then piped to `elink` finding related PubMed Compounds via the Entrez link `pccompound_pccompound`.
 
@@ -72,7 +72,7 @@ CCC(C(CC(C)(C)C)OC(=O)C1=CC=CC=C1)OC(=O)C2=CC=CC=C2	142273534	UUBKFQSDIJJLSL-UHF
 
 _tested on 2020.06.23, total count was 219._
 
-**Description:** Find Compounds with Specific Attributes
+### Find Compounds with Specific Attributes
 
 There are a variety of methods to limit results and find compounds with specific attributes in PubChem Compound. The below script, for example, uses the `efilter` function to limit the `elink` similarity results to compounds with active assays using the query "pccompound_pcassay_active" in the filter (`[FILT]`) field:
 
@@ -156,7 +156,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "(\"U\"[ELMT])
 "U"[ELMT] AND "1"[AtomChiralDefCount] : "100"[AtomChiralDefCount]
 ```
 
-**Description:** Find Number of Compounds by Create Date
+### Find Number of Compounds by Create Date
 
 We can use the Create Date field `[CDAT]` in PubChem Compound to search for compound records created on a specific date. The `esearch` results are then piped into `efetch` to retrieve the XML docsum compound records. Next, the `xtract` function is used to extract out the CreateDate. The extracted data is then piped into the EDirect alias function `sort-uniq-count-rank`, which sorts the data by highest frequency. Finally, I added an additional `sort` command, to sort by date (`-k2` for second column), instead of number of compounds.
 
@@ -235,7 +235,7 @@ _tested on 2020.06.22, total count was 12 (as expected in the for loop)._
 
 In the above for loop bash script, I added a sleep of one second between each `esearch` query in an effort to not overload the NCBI servers.
 
-**Description** Find Related PubChem Substances (same)
+### Find Related PubChem Substances (same)
 
 To find the number of related PubChem substances for a PubChem compound, we can use `elink` with Entrez link `pccompound_pcsubstance_same`:
 

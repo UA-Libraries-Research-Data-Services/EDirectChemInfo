@@ -7,9 +7,9 @@
 > 3. `\` followed by `>` on the next line represents continued terminal input. You will need to delete the `>` symbol in order to run the scripts as a copy/paste into terminal.
 > 4. You should validate your own EDirect scripts and results as there may be unintentional mistakes in these recipes. A convenient method is to compare your EDirect results to the NCBI Web interface search results: [https://www.ncbi.nlm.nih.gov/](https://www.ncbi.nlm.nih.gov/).
 
-### PubMed
+## PubMed EDirect
 
-**Description:** Search PubMed by Keyword and/or MeSH and Retrieve References
+### Search PubMed by Keyword and/or MeSH and Retrieve References
 
 We can use the EDirect function `esearch` to query PubMed. However, before trying to retrieve any of the results with `efetch`, it is a good idea to check that the count range is manageable (e.g., on the order of several thousand). In addition, using the `-log` option allows you to see exactly how your query is interpreted in PubMed:
 
@@ -83,7 +83,7 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "\"ionic liquids\"
 _tested on 2020.06.28, total count was 970._
 
 
-**Description:** Calculate the Most Frequent Journal Titles For a PubMed Search
+### Calculate the Most Frequent Journal Titles For a PubMed Search
 
 The below script uses `esearch` to query PubMed for "Artificial Intelligence" in the `[MESH]` field and "drug discovery" in the `[ALL]` field. The records are then retrieved as XML format using the `efetch` function, followed by extracting out the journal names (`IsoAbbreviation`) using `xtract`. The `xtract` results are then piped to the EDirect alias function `sort-uniq-count-rank`, which sorts the data by highest frequency:
 
@@ -127,7 +127,7 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "\"Artificial Inte
 ...
 ```
 
-**Description:** Calculate The Frequency of Author Publications for a University Department in PubMed
+### Calculate The Frequency of Author Publications for a University Department in PubMed
 
 The below script uses `esearch` to query PubMed for ("university of alabama" AND tuscaloosa) in the affiliation field (`[AFFL]`). Tuscaloosa was added to limit the number of retrieved records associated with only The University of Alabama at Birmingham and The University of Alabama at Huntsville. Another approach could have been to use the NOT operator: `"(university of alabama[AFFL]) NOT (birmingham[AFFL] OR huntsville[AFFL])"`. However, the latter approach may eliminate any collaborative articles with these institutions (affiliation searches are challenging). Next, the results were retrieved as XML using `efetch`, followed by piping these results to `xtract` to extract out the publication year (`PubDate/Year`) and sort by frequency with `sort-uniq-count-rank`. Note that a conditional statement was used in the `xtract` pattern to only extract results from articles if the affiliation contains both `chemistry` and `tuscaloosa`. The thought here was that this would limit the results (mostly) to author publications from The University of Alabama (Tuscaloosa) Department of Chemistry & Biochemistry:
 
@@ -254,7 +254,7 @@ _tested on 2020.06.26, total count was 1063._
 With a quick look at the ~1000 results, it seemed like we extracted out the intended data, however, I did notice a couple of false positive results. One example was an article from The University of Alabama (Tuscaloosa) Department of Biological Sciences with an external collaborator having "Chemistry" in the Institution name. Other errors could be what we unintentionally excluded such as any records that do not have Tuscaloosa in the affiliation field (i.e., only a partial address or zip code). These type of affiliation searches are tricky, so test often and think through the results carefully.
 
 
-**Description:** Retrieve Cites and Cited References in PubMed
+### Retrieve Cites and Cited References in PubMed
 
 The `elink` function can retrieve associated cites and cited references for PubMed records. Cites are the available references in the article (i.e. bibliography list) and cited are references to the article. Not all PubMed articles have associated citation reference data. The available reference data are from the [NIH Open Citation Collection Dataset](https://pubmed.ncbi.nlm.nih.gov/31600197/).
 
@@ -387,7 +387,7 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "J Cheminform[JOUR
 _tested on 2020.06.28, total count was 1037 unique Journals._
 
 
-**Description:** Number of Records in PubMed by Create Date
+### Number of Records in PubMed by Create Date
 
 Here is an interesting script to retrieve the count of PubMed records by create date (`[CRDT]`) for each month of 2020. Since there are over 100,000 records added to PubMed every month, a strategy using `efetch` likely would not work (i.e., trying to retrieve 500,000+ records would take a long time).
 
