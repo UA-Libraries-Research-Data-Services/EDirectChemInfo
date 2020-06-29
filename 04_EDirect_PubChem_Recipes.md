@@ -22,7 +22,6 @@ C[C@]12CCC(=O)C=C1CCC[C@@H]2OC(=O)C3=CC=CC=C3	11044292	NJTXJDYZPQNTSM-WMZOPIPTSA
 ```
 _tested on 2020.06.23, total count was 1._
 
-
 ### Search PubChem Compound with a list of CIDs and Retrieve Data
 
 If we have a small list of PubChem Compound Identifiers (CIDs) and need to retrieve specific data for each CID, we can write a for loop directly in the terminal. Note that in the below Bash script, I added a sleep of one second within the loop in an effort to not overload the NCBI servers.
@@ -52,7 +51,7 @@ _tested on 2020.06.22, total count was 5 (as expected in the for loop)._
 
 ### Retrieve Pre-Computed Linked Similar Compounds
 
-In the below script, we use the `esearch` function to query the PubChem Compound database (`pccompound`) for CID 11044292 within the Compound ID field, `[uid]`. The `esearch` results are then piped to `elink` finding related PubMed Compounds via the Entrez link `pccompound_pccompound`.
+In the below script, we use the `esearch` function to query the PubChem Compound database (`pccompound`) for CID 11044292 within the Compound ID field (`[uid]`). The `esearch` results are then piped to `elink` finding related PubChem Compounds via the Entrez link `pccompound_pccompound`.
 
 ```console
 
@@ -65,8 +64,6 @@ COC(=O)CCCCC[C@H](C1=CC=CC=C1)OC(=O)C2=CC=CC=C2	145778504	JBIQRMBECWAGMJ-LJQANCH
 CCC(C)(C)CC(C(C)(C)C)OC(=O)C1=CC=CC=C1	144028402	MUFYYXSXZGYWBT-UHFFFAOYSA-N	2,2,5,5-tetramethylheptan-3-yl benzoate
 CCCCC1CC=C2CC(CCC2(C1CC)C)OC(=O)C3=CC=CC=C3	144010186	GRAQMEKPDSWBNB-UHFFFAOYSA-N	(6-butyl-5-ethyl-4a-methyl-2,3,4,5,6,7-hexahydro-1H-naphthalen-2-yl) benzoate
 CC1C(C2=CC=CC=C2C(=O)O1)(C)C	143663857	BJNREZQDTMCPSA-UHFFFAOYSA-N	3,4,4-trimethyl-3H-isochromen-1-one
-CCCC1(C=CC=CC1OC(=O)C2=CC=CC=C2)C3=CC=CC=C3	142715462	ZTBHSBSKBIJMJK-UHFFFAOYSA-N	(6-phenyl-6-propylcyclohexa-2,4-dien-1-yl) benzoate
-CCC(C(CC(C)(C)C)OC(=O)C1=CC=CC=C1)OC(=O)C2=CC=CC=C2	142273534	UUBKFQSDIJJLSL-UHFFFAOYSA-N	(4-benzoyloxy-6,6-dimethylheptan-3-yl) benzoate
 ...
 ```
 
@@ -93,7 +90,6 @@ CC1=C(C(C(OC1=O)C2=CC=CC=C2)(C)C)OC(=O)C3=CC=CC=C3	569453	UXXMZHQXFIACTH-UHFFFAO
 
 _tested on 2020.06.23, total count was 6._
 
-
 Another filtering method could be to add a specific property attribute range, such as compounds containing 8 to 12 rotatable bonds (`[RBC]`):
 
 ```console
@@ -116,7 +112,6 @@ CC(CCCCC(C)(C(C)(C)C)OC(=O)C1=CC=CC=C1)OC(=O)C2=CC=CC=C2	141068107	12
 
 _tested on 2020.06.23, total count was 51._
 
-
 It is also possible to query PubChem Compound directly for compounds with specific attributes (i.e., without the use of `efilter`). However, you will likely need to be very specific in order to retrieve a reasonable number of records. For example, in the the below script, PubChem Compound was queried for compounds containing Uranium in the element field (`[ELMT]`) and 1:100 defined chiral atoms in the AtomChiralDefCount field (`[ACDC]`):
 
 
@@ -138,7 +133,7 @@ CC1=CC=C(C=C1)S(=O)(=O)OC[C@]2(C3C([CH-]O2)OC4(O3)CCCCC4)CO.[U]	145818172	C19H25
 
 _tested on 2020.06.23, total count was 682._
 
-Note that I escaped (`\`) the internal quotes in the above query. Sometimes this is not necessary (in my experience it depends on the NCBI database). If you are unsure how the query is being interpreted, run the `esearch` function with `-log`. This reports out the parsed query at the end of the returned XML:
+Note that I escaped (`\`) the internal quotes in the above query. Sometimes this is not necessary (in my experience it depends on the NCBI database). If you are unsure how the query is being interpreted, run the `esearch` function with the `-log` option. This reports out the parsed query at the end of the returned XML:
 
 
 ```console
