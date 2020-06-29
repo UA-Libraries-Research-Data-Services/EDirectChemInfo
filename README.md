@@ -23,7 +23,7 @@ The University of Alabama\
 
 ## References
 
-These are the main references I used to learn about NCBI E-Utilities, the EDirect syntax, Unix commands/scripts, and the importance of linked chemical data. Many thanks to the authors.
+These are the main references I used to learn about NCBI E-Utilities, the EDirect syntax, Unix commands/scripts, and the importance of linked chemical data. Many thanks to the authors for their work.
 
 1. [NCBI Documentation for Entrez Direct: E-utilities on the UNIX Command Line](https://www.ncbi.nlm.nih.gov/books/NBK179288/)
 2. [NIH NLM The Insider's Guide to Accessing NLM Data](https://dataguide.nlm.nih.gov/)
