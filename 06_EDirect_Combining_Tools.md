@@ -66,7 +66,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "13586"[UID] |
 1 molecule converted
 ```
 
-This works for multiple molecules too:
+This works for multiple molecules too!
 
 ```console
 
