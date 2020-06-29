@@ -30,3 +30,10 @@ The University of Alabama\
 5. [Entrez Link Descriptions](https://eutils.ncbi.nlm.nih.gov/entrez/query/static/entrezlinks.html)
 6. [Software Carpentry: The Unix Shell](https://swcarpentry.github.io/shell-novice/)
 7. [Opening up connectivity between documents, structures and bioactivity by Christopher Southan](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7136548/)
+
+
+## License Notes
+
+Code in this repository is licensed under the [MIT License](https://github.com/vfscalfani/EDirectChemInfo/blob/master/LICENSE). Code output (i.e. data snippets) retrieved from NCBI via their EDirect utility is shown for code demonstration purposes only and is credited to NCBI and NLM. Please see the [NCBI Website and Data Usage Policies and Disclaimers](https://www.ncbi.nlm.nih.gov/home/about/policies/) for more information regarding the data.
+
+
