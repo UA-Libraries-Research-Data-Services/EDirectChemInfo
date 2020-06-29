@@ -418,7 +418,7 @@ _tested on 2020.06.19, total count was 332._
 ### PubChem BioAssay --> PubChem Compound
 **Description:** Search PubChem BioAssay for an assay, find related PubChem Compounds, and retrieve some property data for the compounds.
 
-In the below script, we first use `esearch` to query PubChem BioAssay for the assay ID 527855 in the `[UID]` field. This result is then piped into `elink` to retrieve linked compounds in the PubChem Compound database (`pcassay_pccompound`). In this case, there were 16 compounds and we used `efetch` to retrieve the CID records as docsum XML, followed by `xtraxt` to extract the IsomericSmiles, CID, HydrogenBondDonorCount, HydrogenBondAcceptorCount, MolecularWeight, and XLogP values.
+In the below script, we first use `esearch` to query PubChem BioAssay for the assay ID 527855 in the `[UID]` field. This result is then piped into `elink` to retrieve linked compounds in the PubChem Compound database (`pcassay_pccompound`). In this case, there were 16 compounds and we used `efetch` to retrieve the CID records as docsum XML, followed by `xtract` to extract the IsomericSmiles, CID, HydrogenBondDonorCount, HydrogenBondAcceptorCount, MolecularWeight, and XLogP values.
 
 ```console
 
