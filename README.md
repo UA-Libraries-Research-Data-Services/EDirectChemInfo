@@ -1,6 +1,6 @@
 # EDirectChemInfo
 
-This repository contains Entrez Direct (EDirect, an NCBI tool) Unix scripts for programmatically obtaining data from various NCBI databases. Other EDirect resources and guides exist (referenced below). This EDirectChemInfo repository differs in that the focus is on obtaining chemical information, cheminformatics data, and chemical structure <--> bioactivity <--> document  relationship links. There are not many PubChem EDirect examples available, so hopefully this repository proves useful. I have also added some tips, step-wise directions, and code output examples to help you get started.
+This repository contains Entrez Direct (EDirect, an NCBI tool) Unix scripts for programmatically obtaining data from various NCBI databases. Other EDirect resources and guides exist (referenced below). This EDirectChemInfo repository differs in that the focus is on teaching how to obtain chemical information, cheminformatics data, and chemical structure <--> bioactivity <--> document relationship links. There are not many PubChem EDirect examples available, so hopefully this repository proves useful. I have also added some tips, step-wise directions, and code output examples to help you get started.
 
 Please note that this EDirectChemInfo repository is not affiliated with NCBI. You should contact [NCBI](https://www.ncbi.nlm.nih.gov/books/NBK179288/#_chapter6_For_More_Information_) for specific questions related to EDirect. This repository was created to accompany library instruction at The University of Alabama. With that in mind, please feel free to open a GitHub Issue or contact me directly with comments/questions if you think there is something I can help you with. In addition, if this repository has been a useful resource for you, please do let me know as this type of feedback can help prioritize my time.
 
@@ -34,6 +34,6 @@ The University of Alabama\
 
 ## License Notes
 
-Code in this repository is licensed under the [MIT License](https://github.com/vfscalfani/EDirectChemInfo/blob/master/LICENSE). Code output (i.e. data snippets) retrieved from NCBI via their EDirect utility is shown for code demonstration purposes only and is credited to NCBI and NLM. Please see the [NCBI Website and Data Usage Policies and Disclaimers](https://www.ncbi.nlm.nih.gov/home/about/policies/) for more information regarding the data.
+Code in this repository is licensed under the [MIT License](https://github.com/vfscalfani/EDirectChemInfo/blob/master/LICENSE). Code output (e.g., reference/molecular data snippets) retrieved from NCBI via their EDirect utility is shown for code demonstration purposes only and is credited to NCBI and NLM. Please see the [NCBI Website and Data Usage Policies and Disclaimers](https://www.ncbi.nlm.nih.gov/home/about/policies/) for more information regarding the data.
 
 
