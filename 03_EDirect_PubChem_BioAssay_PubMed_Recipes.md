@@ -392,7 +392,7 @@ In the above table, the first column contains the PMIDs, subsequent columns cont
 ### PubChem BioAssay --> PubMed
 **Description:** Search PubChem BioAssay for assays from a specific source name and then find related PubMed literature.
 
-In the below script, we first use `esearch` to query PubChem BioAssay for IUPHAR/BPS_Guide_to_PHARMACOLOGY in the `[SNME]` Source Name field. This result is then piped into `elink` to retrieve linked records in the PubMed database (`pcassay_pubmed`). The `efilter` function was used to limit the results to the last 5 years. This resulted in 332 record, and we used `efetch` to retrieve the PubMed records as XML, followed by `xtract` to extract out some bibliogrpahic information.
+In the below script, we first use `esearch` to query PubChem BioAssay for IUPHAR/BPS_Guide_to_PHARMACOLOGY in the Source Name field (`[SNME]`). This result is then piped into `elink` to retrieve linked records in the PubMed database (`pcassay_pubmed`). The `efilter` function was used to limit the results to the last 5 years. This resulted in 332 record, and we used `efetch` to retrieve the PubMed records as XML, followed by `xtract` to extract out some bibliographic information.
 
 ```console
 
