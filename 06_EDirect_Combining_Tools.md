@@ -172,14 +172,68 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "132427739"[UI
 
 _Tested with Open Babel v3.0.0 installed from Snap. I did receive a Font Configuration error when saving the PNG files, however, the conversion seemed to work fine._
 
+**Description:** Pipe Data from EDirect into gnuplot
 
-**Description:** Pipe Data directly into gnuplot
+[gnuplot](http://www.gnuplot.info/) is a command-line graphing program that allows plotting data from standard input. In gnuplot, there is an option called "dumb terminal" that creates plots using ASCII characters directly in the terminal window, which is convenient for initial analysis of compiled EDirect data. For example, here is some data related to the number of *J Cheminform* articles indexed in PubMed by publication date:
 
-...in progress, coming soon.
+```console
 
+user@computer:~$  esearch -email name@xx.edu -db pubmed -query "J Cheminform[JOUR]" | \
+> efetch -format docsum | \
+> xtract -pattern DocumentSummary -element PubDate | \
+> cut -d " " -f 1 | \
+> sort-uniq-count-rank | \
+> sort -k2
+22	2009
+12	2010
+54	2011
+39	2012
+52	2013
+71	2014
+78	2015
+71	2016
+67	2017
+68	2018
+56	2019
+```
+We can pipe this data directly to gnuplot. In the below script, `set term dumb` is the gnuplot option to create an ASCII plot, `-` sets the data input to standard input instead of a file, `using 2:1` sets the second column as the x-axis, and the first column as the y-axis, `with boxes` creates a box plot, and `notitle` removes the plot legend:
 
+```console
 
+user@computer:~$ esearch -email name@xx.edu -db pubmed -query "J Cheminform[JOUR]" | \
+> efetch -format docsum | \
+> xtract -pattern DocumentSummary -element PubDate | \
+> cut -d " " -f 1 | \
+> sort-uniq-count-rank | \
+> sort -k2 | \
+> gnuplot -e "set term dumb; plot '-' using 2:1 with boxes notitle"
 
+                                                                               
+  80 +---------------------------------------------------------------------+   
+     |           +          +           +  *******  +          +           |   
+     |                                     *     *                         |   
+  70 |-+                             *******     *******    *******      +-|   
+     |                               *     *     *     ******     *        |   
+     |                               *     *     *     *    *     *        |   
+  60 |-+                             *     *     *     *    *     *      +-|   
+     |              ******           *     *     *     *    *     *******  |   
+     |              *    *     *******     *     *     *    *     *     *  |   
+  50 |-+            *    *     *     *     *     *     *    *     *     *+-|   
+     |              *    *     *     *     *     *     *    *     *     *  |   
+  40 |-+            *    *     *     *     *     *     *    *     *     *+-|   
+     |              *    *******     *     *     *     *    *     *     *  |   
+     |              *    *     *     *     *     *     *    *     *     *  |   
+  30 |-+            *    *     *     *     *     *     *    *     *     *+-|   
+     |              *    *     *     *     *     *     *    *     *     *  |   
+     |              *    *     *     *     *     *     *    *     *     *  |   
+  20 |-+*******     *    *     *     *     *     *     *    *     *     *+-|   
+     |  *     *     *    *     *     *     *     *     *    *     *     *  |   
+     |  *     *******    *  +  *     *  +  *     *  +  *    *  +  *     *  |   
+  10 +---------------------------------------------------------------------+   
+    2008        2010       2012        2014        2016       2018        2020 
 
+```
+
+_Tested with gnuplot-x11 5.2.8._
 
 
