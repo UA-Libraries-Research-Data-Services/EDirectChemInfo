@@ -59,7 +59,7 @@ taxonomy
 
 ## PubChem Compound EDirect Fields, Links, and Data
 
-This EDirectChemInfo repository mostly focuses on searching the PubChem Compound, PubMed, and PubChem BioAssay databases. So let's take a closer look at these three databases, starting with the PubChem Compound (pccompound) database. The `einfo` arguments `-fields` and `-links` provide information about the available data fields and linked information, respectively:
+This EDirectChemInfo repository mostly focuses on searching the PubChem Compound, PubMed, and PubChem BioAssay databases. So let's take a closer look at these three databases, starting with the PubChem Compound (`-db pccompound`) database. The `einfo` arguments `-fields` and `-links` provide information about the available data fields and linked information, respectively:
 
 ```console
 
@@ -158,7 +158,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID]
 
 ```
 
-We searched PubChem for the Compound Identifier 512323 using `esearch`, and the NCBI Entrez server returned a summary of the search results. The WebEnV and QueryKey specify the location of the search results on the NCBI server. In order to retrieve the data, we can pipe, `|`, the `esearch` results directly into the `efetch` function:
+We searched PubChem for the Compound Identifier 512323 using `esearch`, and the NCBI Entrez server returned a summary of the search results. The WebEnV and QueryKey specify the location of the search results on the NCBI server. In order to retrieve the data, we can pipe (`|`) the `esearch` results directly into the `efetch` function:
 
 ```console
 
@@ -240,7 +240,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID] | 
 </DocumentSummarySet>
 ```
 
-`efetch` returned the CID record data as document summary XML format (for other formats see `efetch -help`). XML is certainly useful, but we probably want to parse the data into a table for easier viewing and data analysis. EDirect contains a function called `xtract` that can convert the Entrez XML data into tables. See `xtract -help` for more information. In brief, you will need to select a main XML heading tag to define the extract pattern and then specify the data you want to extract with the sub-heading tag names. For example, in the above CID record data, we can set the pattern to DocumentSummary (the first main XML tag in this case), and then the elements to a few of the sub-heading tags we are interested such as IsomericSmiles, CID, InChIKey, MolecularFormula, and MolecularWeight:
+`efetch` returned the CID record data as document summary XML format (for other formats see `efetch -help`). XML is useful, but we probably want to parse the data into a table for easier viewing and analysis. EDirect contains a function called `xtract` that can convert the Entrez XML data into tables. See `xtract -help` for more information. In brief, you will need to select a main XML heading tag to define the extract pattern and then specify the data you want to extract with the sub-heading tag names (elements). For example, in the above CID record data, we can set the pattern to DocumentSummary (the first main XML tag in this case), and then the elements to a few of the sub-heading tags we are interested such as IsomericSmiles, CID, InChIKey, MolecularFormula, and MolecularWeight:
 
 ```console
 
