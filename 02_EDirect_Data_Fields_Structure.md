@@ -57,6 +57,8 @@ structure
 taxonomy
 ```
 
+## PubChem Compound EDirect Fields, Links, and Data
+
 This EDirectChemInfo repository mostly focuses on searching the PubChem Compound, PubMed, and PubChem BioAssay databases. So let's take a closer look at these three databases, starting with the PubChem Compound (pccompound) database. The `einfo` arguments `-fields` and `-links` provide information about the available data fields and linked information, respectively:
 
 ```console
@@ -248,6 +250,9 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 512323[UID] | 
 C1[C@@H]([C@H](O[C@H]1N2C=C(C(=O)NC2=O)C3=CC=CS3)CO)O	512323	PCDQBRGMSMVLDZ-IQJOONFLSA-N	C13H14N2O5S	310.330
 
 ```
+
+## PubMed EDirect Fields, Links, and Data
+
 Similarly to PubChem Compound, let's preview the available PubMed database indexed fields, links, and data structure:
 
 ```console
@@ -657,6 +662,9 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "17630804"[PMID] |
 
 ```
 Note that in the above `xtract` argument, the element selection is specified with `-first`, so that only the first occurrence is extracted (e.g., first Author).
+
+
+## PubChem BioAssay EDirect Fields, Links, and Data
 
 Lastly, let's take a look at the PubChem BioAssay database indexed fields, links, and data structure:
 
