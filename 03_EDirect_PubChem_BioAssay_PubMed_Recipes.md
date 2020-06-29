@@ -7,9 +7,9 @@
 > 3. `\` followed by `>` on the next line represents continued terminal input. You will need to delete the `>` symbol in order to run the scripts as a copy/paste into terminal.
 > 4. You should validate your own EDirect scripts and results as there may be unintentional mistakes in these recipes. A convenient method is to compare your EDirect results to the NCBI Web interface search results: [https://www.ncbi.nlm.nih.gov/](https://www.ncbi.nlm.nih.gov/).
 
-### PubChem
+## PubChem
 
-**PubChem Compound --> PubMed Citations**\
+### PubChem Compound --> PubMed Citations
 **Description:** Search for a CID in the PubChem Compound Database and retrieve related PubMed citations.
 
 In the below script, we use the `esearch` function to query the PubChem Compound database (`pccompound`) for CID 174076 within the Compound ID field, `[uid]`. The `esearch` results are then piped to `elink` finding related PubMed citations via the Entrez link `pccompound_pubmed`. Finally, we retrieve the results with `efetch` in xml format and extract out some bibliographic reference information using the `xtract` function.
@@ -214,7 +214,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "6303"[uid] | 
 ```
 _tested on 2020.06.18, total count was 20 CIDs (not all have associated AIDs)._
 
-### PubMed
+## PubMed
 
 **PubMed --> PubChem Compound**\
 **Description:** Search for a PubMed article ID (PMID), then retrieve related PubChem Compounds.
@@ -429,7 +429,7 @@ _tested on 2020.06.19, total count was 347 (returns all PMIDs, not all have link
 
 In the above table, the first column contains the PMIDs, subsequent columns contain the linked BioAssays (AIDs).
 
-### PubChem BioAssay
+## PubChem BioAssay
 
 **PubChem BioAssay --> PubMed**\
 **Description:** Search PubChem BioAssay for assays from a specific source name and then find related PubMed literature.
