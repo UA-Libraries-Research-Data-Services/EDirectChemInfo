@@ -30,7 +30,7 @@ sleeping 1/3 second
 hydrogel-based[All Fields] AND ("drug delivery systems"[MeSH Terms] OR ("drug"[All Fields] AND "delivery"[All Fields] AND "systems"[All Fields]) OR "drug delivery systems"[All Fields] OR ("drug"[All Fields] AND "delivery"[All Fields]) OR "drug delivery"[All Fields])
 ```
 
-After deciding the `esearch` query is appropriate, we can start to pipe the `esearch` results into other EDirect functions. For example, the below script first uses `esearch` to query PubMed for "hydrogel-based drug delivery", and then these results are piped (`|`) to `efetch` to retrieve the results as XML format. The `efetch` results are then piped to the `xtract` function where several bibliographic elements of the PubMed XML records are extracted into a table:
+After deciding if the `esearch` query is appropriate, we can start to pipe the `esearch` results into other EDirect functions. For example, the below script first uses `esearch` to query PubMed for "hydrogel-based drug delivery", and then these results are piped (`|`) into `efetch` to retrieve the results as XML format. The `efetch` results are then piped to the `xtract` function where several bibliographic elements of the PubMed XML records are extracted into a table:
 
 ```console
 
@@ -43,12 +43,6 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "hydrogel-based dr
 32522716	Johnson	KA	Drug-impregnated, pressurized gas expanded liquid-processed alginate hydrogel scaffolds for accelerated burn wound healing.	Acta Biomater	2020
 32521459	Radwan-Pragłowska	J	ZnO nanorods functionalized with chitosan hydrogels crosslinked with azelaic acid for transdermal drug delivery.Colloids Surf B Biointerfaces	2020	194	111170
 32435134	Sheikh	FA	Linseed hydrogel based floating drug delivery system for fluoroquinolone antibiotics: Design, in vitro drug release and in vivo real-time floating detection.	Saudi Pharm J	2020	28	5	538-549
-32397180	Askari	E	Stimuli-Responsive Hydrogels for Local Post-Surgical Drug Delivery.	Gels	2020	6	2
-32364331	Zhou	X	Biodegradable β-Cyclodextrin Conjugated Gelatin Methacryloyl Microneedle for Delivery of Water-Insoluble Drug.	Adv Healthc Mater	2020	9	11	e2000527
-32310635	Wu	M	Injectable and Self-Healing Nanocomposite Hydrogels with Ultrasensitive pH-Responsiveness and Tunable Mechanical Properties: Implications for Controlled Drug Delivery.	Biomacromolecules	2020	21	62409-2420
-32298719	Jahanban-Esfahlan	R	A bio-inspired magnetic natural hydrogel containing gelatin and alginate as a drug delivery system for cancer chemotherapy.	Int. J. Biol. Macromol.	2020	156	438-445
-32294955	Sun	HCM	Magnetically Powered Biodegradable Microswimmers.	Micromachines (Basel)	2020	11	4
-32250466	Bahmanpour	A	Synthesis and characterization of thermosensitive hydrogel based on quaternized chitosan for intranasal delivery of insulin.	Biotechnol. Appl. Biochem.	2020
 ...
 ```
 
@@ -69,17 +63,8 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "\"ionic liquids\"
 32163446	Young	GR	PLoS ONE	2020	15	3	e0229745
 32000025	Jin	M	Environ. Pollut.	2020	260	114013
 31959458	Fan	C	J Chromatogr A	2020	1618	460872
-31906030	Tripathi	T	Int J Environ Res Public Health	2019	17	1
-31892100	Li	HY	Molecules	2019	25	1
-31726585	Xu	Y	Chemosphere	2020	240	124919
-31726264	Patil	V	Chemosphere	2020	243	125302
-31704621	Raoufi	A	J. Chromatogr. B Analyt. Technol. Biomed. Life Sci.	2019	1132	121823
-31683728	Lu	Y	Molecules	2019	24	21
-31677507	Habibul	N	Chemosphere	2020	242	125228
-31675504	Gomez-Herrero	E	Ecotoxicol. Environ. Saf.	2020	187	109836
 ...
 ```
-
 _tested on 2020.06.28, total count was 970._
 
 
@@ -129,7 +114,7 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "\"Artificial Inte
 
 ### Calculate The Frequency of Author Publications for a University Department in PubMed
 
-The below script uses `esearch` to query PubMed for ("university of alabama" AND tuscaloosa) in the affiliation field (`[AFFL]`). Tuscaloosa was added to limit the number of retrieved records associated with only The University of Alabama at Birmingham and The University of Alabama at Huntsville. Another approach could have been to use the NOT operator: `"(university of alabama[AFFL]) NOT (birmingham[AFFL] OR huntsville[AFFL])"`. However, the latter approach may eliminate any collaborative articles with these institutions (affiliation searches are challenging). Next, the results were retrieved as XML using `efetch`, followed by piping these results to `xtract` to extract out the publication year (`PubDate/Year`) and sort by frequency with `sort-uniq-count-rank`. Note that a conditional statement was used in the `xtract` pattern to only extract results from articles if the affiliation contains both `chemistry` and `tuscaloosa`. The thought here was that this would limit the results (mostly) to author publications from The University of Alabama (Tuscaloosa) Department of Chemistry & Biochemistry:
+The below script uses `esearch` to query PubMed for ("university of alabama" AND tuscaloosa) in the affiliation field (`[AFFL]`). Tuscaloosa was added to limit the number of retrieved records associated with The University of Alabama at Birmingham and The University of Alabama at Huntsville. Another approach could have been to use the NOT operator: `"(university of alabama[AFFL]) NOT (birmingham[AFFL] OR huntsville[AFFL])"`. However, the latter approach may eliminate any collaborative articles with these institutions (affiliation searches are challenging!). Next, the results were retrieved as XML using `efetch`, followed by piping these results to `xtract` to extract out the publication year (`PubDate/Year`) and sort by frequency with `sort-uniq-count-rank`. Note that a conditional statement was used in the `xtract` pattern to only extract results from articles if the affiliation contains both `chemistry` and `tuscaloosa`. The thought here was that this would limit the results (mostly) to author publications from The University of Alabama (Tuscaloosa) Department of Chemistry:
 
 ```console
 
@@ -152,31 +137,12 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "(university of al
 23	2010
 20	2004
 19	2003
-18	2009
-17	1999
-17	2001
-16	2000
-15	2002
-15	2011
-14	2005
-9	1998
-8	1997
-6	1992
-6	1996
-5	1988
-4	1990
-4	1994
-4	1995
-2	1991
-2	1993
-1	1974
-1	1987
-1	1989
+...
 ```
 
 _tested on 2020.06.26, total count was 35._
 
-If instead we want to know individual Author numbers instead of total publications by year, we can change the `xtract` pattern:
+If instead we want to know individual Author numbers in PubMed instead of total publications by year, we can change the `xtract` pattern:
 
 ```console
 
@@ -199,23 +165,6 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "(university of al
 10	Kelley	SP
 10	Metzger	RM
 10	Papish	ET
-9	Gerlach	DL
-9	Kispert	LD
-9	Li	S
-9	Timkovich	R
-8	Matus	MH
-7	Gurau	G
-7	Gutowski	KE
-7	Jackson	VE
-7	Qu	F
-6	Hester	TH
-6	McCrary	PD
-6	Nguyen	MT
-6	Zhang	S
-5	Aqad	E
-5	Arduengo	AJ
-5	Bonizzoni	M
-5	Chen	Y
 ...
 ```
 _tested on 2020.06.26, total count was 387._
@@ -305,7 +254,7 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "29978703[PMID]" |
 30259622	Tymann	D	Angew. Chem. Int. Ed. Engl.	2018	57	47	15553-15557
 ```
 
-We can answer some interesting questions with the NIH Open Citation Collection Data. For example, I noticed that the PubMed XML records for articles in *J Cheminform* contain a reference list for articles in PubMed. So, theoretically, if we query PubMed for *J Cheminform*, extract out all of the references, and sort these by frequency, we should get the most cited articles in *J Cheminform* article bibliographies (caveat: in the available PubMed citation data).
+We can answer some interesting questions with the NIH Open Citation Collection Data. For example, I noticed that the PubMed XML records for articles in *J Cheminform* contain a reference list for articles in PubMed. So, theoretically, if we query PubMed for *J Cheminform*, extract out all of the references, and sort these by frequency, we should get the most cited references in *J Cheminform* article bibliographies (caveat: in the available PubMed citation data).
 
 In the below script, the `xtract` pattern creates a new line for each extracted reference citation PMID (`ArticleId IdType="pubmed"`):
 
