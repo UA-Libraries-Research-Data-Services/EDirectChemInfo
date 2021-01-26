@@ -73,3 +73,32 @@ Link Example
   </Link>
 
 ```
+
+## EDirect Query Translation via Debug Flag
+
+When experimenting with searches in EDirect, it is often helpful to view the interpreted query. This can be accomplished using the `-debug` flag in EDirect 14.4 (thanks to NLM Support for the explanation and tip!):
+
+```console
+
+user@computer:~$ esearch -email name@xx.edu -db pubmed -query "hydrogel-based drug delivery" -debug
+nquire -url https://eutils.ncbi.nlm.nih.gov/entrez/eutils/ esearch.fcgi -retmax 0 -usehistory y -db pubmed -term "hydrogel-based drug delivery" -tool edirect -edirect 14.4 -edirect_os Linux -email name@xx.edu
+<ENTREZ_DIRECT>
+  <Db>pubmed</Db>
+  <WebEnv>MCID...</WebEnv>
+  <QueryKey>1</QueryKey>
+  <Count>436</Count>
+  <Step>1</Step>
+  <Email>name@xx.edu</Email>
+  <Debug>Y</Debug>
+</ENTREZ_DIRECT>
+
+```
+Next, copy and run the `nquire` command and pipe the results to `xtract`, extracting out the QueryTranslation element:
+
+```console
+
+user@computer:~$ nquire -url https://eutils.ncbi.nlm.nih.gov/entrez/eutils/ esearch.fcgi -retmax 0 -usehistory y -db pubmed -term "hydrogel-based drug delivery" | xtract -pattern eSearchResult -element QueryTranslation
+hydrogel-based[All Fields] AND ("drug delivery systems"[MeSH Terms] OR ("drug"[All Fields] AND "delivery"[All Fields] AND "systems"[All Fields]) OR "drug delivery systems"[All Fields] OR ("drug"[All Fields] AND "delivery"[All Fields]) OR "drug delivery"[All Fields])
+
+```
+
