@@ -1,10 +1,10 @@
 # What is EDirect?
 
-EDirect is a Unix command line tool from NCBI that allows programmatic retrieval of chemical/biological data and literature references from NCBI databases. EDirect reduces the barrier to accessing NCBI data programmatically; that is, with a basic knowledge of the Unix shell (e.g., bash), it is straightforward to obtain and format your own custom dataset, often with only a few lines of code. Moreover, you can input data retrieved from EDirect into other Unix tools for quick viewing and analysis ([Pipeline (Unix))](https://en.wikipedia.org/wiki/Pipeline_(Unix)).
+EDirect is a Unix command line tool from NCBI that allows programmatic retrieval of chemical/biological data and literature references from NCBI databases. EDirect reduces the barrier to accessing NCBI data programmatically; that is, with a basic knowledge of the Unix shell (e.g., bash), it is straightforward to obtain and format your own custom datasets, often with only a few lines of code. Moreover, you can input data retrieved from EDirect into other Unix tools for quick viewing and analysis ([Pipeline (Unix))](https://en.wikipedia.org/wiki/Pipeline_(Unix)).
 
 ## Installation Tips
 
-Follow the installation instructions from NCBI: [Entrez Direct: E-utilities on the UNIX Command Line](https://www.ncbi.nlm.nih.gov/books/NBK179288/). There are several different methods to install EDirect. I used option 3 (EDirect v13.7) with `wget` in Gnome Terminal on a Linux Ubuntu 18.04 workstation. If you are using Windows, NCBI mentions that you can use the Cygwin Unix emulator. Another option for Windows users is to setup a Linux virtual machine. There are many tutorials for setting up virtual machines. For example, here is one for installing [Ubuntu on VirtualBox](https://askubuntu.com/questions/142549/how-to-install-ubuntu-on-virtualbox). When installing EDirect in a virtual machine, you may need to customize the VirtualBox network settings in order to use the `curl` or `wget` EDirect installation methods. In my testing on an Ubuntu 20.04 virtual machine, the fourth installation option for EDirect (using the longer perl script) worked fine with the standard VirtualBox network settings.
+Follow the installation instructions from NCBI: [Entrez Direct: E-utilities on the UNIX Command Line](https://www.ncbi.nlm.nih.gov/books/NBK179288/). There are several different methods to install EDirect. I used option 3 (EDirect v14.4) with `wget` in Gnome Terminal on a Linux Ubuntu 18.04 workstation. If you are using Windows, NCBI mentions that you can use the Cygwin Unix emulator. Another option for Windows users is to setup a Linux virtual machine. There are many tutorials for setting up virtual machines. For example, here is one for installing [Ubuntu on VirtualBox](https://askubuntu.com/questions/142549/how-to-install-ubuntu-on-virtualbox). When installing EDirect in a virtual machine, you may need to customize the VirtualBox network settings in order to use the `curl` or `wget` EDirect installation methods. In my testing on an Ubuntu 20.04 virtual machine, the fourth installation option for EDirect (using the longer perl script) worked fine with the standard VirtualBox network settings.
 
 ## Usage Tips
 
@@ -29,12 +29,12 @@ I generally refer to the official [Entrez Programming Utilities Help Document](h
 ```console
 
 user@computer:~$ einfo -help
-einfo 13.7
+einfo 14.4
 
 Database Selection
 
-  -db        Database name
-  -dbs       Get all database names
+  -dbs       Print all database names
+  -db        Database name (or "all")
 
 Data Summaries
 
@@ -47,7 +47,7 @@ Field Example
     <Name>ALL</Name>
     <FullName>All Fields</FullName>
     <Description>All terms from all searchable fields</Description>
-    <TermCount>138982028</TermCount>
+    <TermCount>245340803</TermCount>
     <IsDate>N</IsDate>
     <IsNumerical>N</IsNumerical>
     <SingleToken>N</SingleToken>
