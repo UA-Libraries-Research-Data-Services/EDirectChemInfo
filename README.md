@@ -19,8 +19,7 @@ The University of Alabama\
 * [PubChem <--> PubChem BioAssay <--> PubMed EDirect Recipes](https://github.com/vfscalfani/EDirectChemInfo/blob/master/03_EDirect_PubChem_BioAssay_PubMed_Recipes.md)
 * [PubChem EDirect Recipes](https://github.com/vfscalfani/EDirectChemInfo/blob/master/04_EDirect_PubChem_Recipes.md)
 * [PubMed EDirect Recipes](https://github.com/vfscalfani/EDirectChemInfo/blob/master/05_EDirect_PubMed_Recipes.md)
-* [PubMed Central EDirect Recipes](https://github.com/vfscalfani/EDirectChemInfo/blob/master/06_EDirect_PubMedCentral_Recipes.md)
-* [Combining EDirect Results with Chemical Depiction and Plotting](https://github.com/vfscalfani/EDirectChemInfo/blob/master/07_EDirect_Combining_Tools.md)
+* [Combining EDirect Results with Chemical Depiction and Plotting](https://github.com/vfscalfani/EDirectChemInfo/blob/master/06_EDirect_Combining_Tools.md)
 
 ## References
 
@@ -38,5 +37,4 @@ These are the main references I used to learn about NCBI E-Utilities, the EDirec
 ## License Notes
 
 Code in this repository is licensed under the [MIT License](https://github.com/vfscalfani/EDirectChemInfo/blob/master/LICENSE). Code output (e.g., reference/molecular data snippets) retrieved from NCBI via their EDirect utility is shown for code demonstration purposes only and is credited to NCBI and NLM. Please see the [NCBI Website and Data Usage Policies and Disclaimers](https://www.ncbi.nlm.nih.gov/home/about/policies/) for more information regarding the data.
-
 
