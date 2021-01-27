@@ -10,7 +10,7 @@
 ## EDirect PubChem Entrez Links
 
 ### PubChem Compound --> PubMed Citations
-**Description:** Search for a CID in the PubChem Compound Database and retrieve related PubMed citations.
+**Description:** Search for a CID in the PubChem Compound Database and retrieve related PubMed linked references.
 
 In the below script, we use the `esearch` function to query the PubChem Compound database (`pccompound`) for CID 174076 within the Compound ID field, `[uid]`. The `esearch` results are then piped to `elink` finding related PubMed citations via the Entrez link `pccompound_pubmed`. Finally, we retrieve the results with `efetch` in XML format and extract out some bibliographic reference information using the `xtract` function.
 
@@ -28,7 +28,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | 
 22662183	Zhang	BB	PLoS ONE	2012	7	5	e37641
 ...
 ```
-_tested on 2020.06.17, total count was 102._
+_tested on 2021.01.26, EDirect 14.4, total count was 102._
 
 ### PubChem Compound --> PubMed Citations (with filtering)
 **Description:** Search for CID in PubChem Compound Database, find related PubMed citations, then only retrieve references from a specific journal.
@@ -50,7 +50,7 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | 
 21643580	Schröder	C	Phys Chem Chem Phys	2011	13	26	12240-8
 ...
 ```
-_tested on 2020.06.17, total count was 11._
+_tested on 2021.01.26, EDirect 14.4, total count was 11._
 
 ### PubChem Compound --> PubMed MeSH (with filtering)
 **Description:** Search for a CID in PubChem Compound, find related PubMed records via MeSH, and retrieve only references that contain the MeSH subheading "chemical synthesis".
@@ -72,7 +72,8 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 94257[uid] | \
 19572524	Pentacyclic furanosteroids: the synthesis of potential kinase inhibitors related to viridin and wortmannolone.	J. Org. Chem.	2009
 ...
 ```
-_tested on 2020.06.17, total count was 8._
+_tested on 2021.01.26, EDirect 14.4, total count was 8._
+
 
 ### PubChem Compound --> PubMed Citations OR PubMed MeSH
 **Description:** Search for a CID in PubChem Compound, find related PubMed citations and related PubMed citations via MeSH.
@@ -89,14 +90,16 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query 174076[uid] | 
 > efetch -format xml | \
 > xtract -pattern PubmedArticle -element MedlineCitation/PMID -first Author/LastName \
 > Author/Initials ISOAbbreviation PubDate/Year Volume Issue MedlinePgn
+32231037	Babicka	M	Molecules	2020	25	7
+31931064	Love	SA	Int J Biol Macromol	2020	147	569-575
 31818016	Wang	F	Int J Mol Sci	2019	20	24
 31814059	Weber	AL	Orig Life Evol Biosph	2019	49	4	199-211
-31675504	Gomez-Herrero	E	Ecotoxicol. Environ. Saf.	2020	187	109836
-31520950	Pal	S	Ecotoxicol. Environ. Saf.	2019	184	109634
-31500119	Ossowicz	P	Molecules	2019	24	18
+31675504	Gomez-Herrero	E	Ecotoxicol Environ Saf	2020	187	109836
+31520950	Pal	S	Ecotoxicol Environ Saf	2019	184	109634
 ...
 ```
-_tested on 2020.06.17, total count was 314._
+_tested on 2021.01.26, EDirect 14.4, total count was 317._
+
 
 ### PubChem Substance --> PubChem Compound --> PubMed Publisher
 **Description:** Search for a PubChem Substance Data Source Depositor, find related same PubChem Compounds, and then retrieve related PubMed references linked via publisher.
@@ -119,7 +122,8 @@ user@computer:~$ esearch -email name@xx.edu -db pcsubstance -query "nature_commu
 ...
 ```
 
-_tested on 2020.06.17, total count was 101._
+_tested on 2021.01.26, EDirect 14.4, total count was 101._
+
 
 ### PubChem Substance --> PubChem Compound <--> PubMed Publisher
 **Description:** Search for a PubChem Substance Data Source Depositor, find related same PubChem Compounds, and then retrieve related PubMed PMIDs linked via publisher.
@@ -147,9 +151,10 @@ user@computer:~$ esearch -email name@xx.edu -db pcsubstance -query "nature_commu
 91868204	23764831
 ...
 ```
-_tested on 2020.06.17, total count was 1594 (returns all CIDs, not all have linked PMIDs)._
+_tested on 2021.01.26, EDirect 14.4, total count was 1594 (returns all CIDs, not all have linked PMIDs)._
 
 The first column contains the PubChem CIDs and the second column contains the linked PMIDs. Additional linked PMIDs are placed in subsequent columns when available.
+
 
 ### PubChem Compound --> PubChem BioAssay
 **Description:** Search for a PubChem CID in PubChem Compound, then retrieve related PubChem active BioAssay data.
@@ -162,14 +167,14 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "6303"[uid] | 
 > elink -target pcassay -name pccompound_pcassay_active | \
 > efetch -format docsum | \
 > xtract -pattern DocumentSummary -element AID CurrentSourceName AssayName ActiveSidCount TargetCount
-1346987	National Center for Advancing Translational Sciences (NCATS)	P-glycoprotein substrates identified in KB-8-5-11 adenocarcinoma cell line, qHTS therapeutic library screen	1430	0
-86858	ChEMBL	Inhibition HCV NS5B-mediated RNA synthesis	12	1
-216185	ChEMBL	Anti-Herpes simplex virus type-1 activity in vero cells using plaque inhibition assay	20	0
-32353	ChEMBL	Affinity for the Adenosine A1 receptor in the presence of GTP (A1+GTP) by using [3H]-DPCPX as radioligand	15	1
-32352	ChEMBL	Affinity for the Adenosine A1 receptor in the absence of GTP (A1-GTP) by using [3H]DPCPX as radioligand	14	1
+1255098	ChEMBL	Inhibition of TLR4-mediated NF-kappaB signaling pathway in BALB/c mouse RAW264.7 cells assessed as suppression of LPS-stimulated PGE2 production at 1 to 10 ug/ml preincubated for 1 hr followed by LPS challenge measured after 6 hrs by immunoblot analysis	1	1
+1255092	ChEMBL	Inhibition of TLR4-mediated NF-kappaB signaling pathway in BALB/c mouse RAW264.7 cells assessed as suppression of LPS-stimulated TNF-alpha production at 1 to 10 ug/ml preincubated for 1 hr followed by LPS challenge measured after 6 hrs by immunoblot analysis	1	1
+751324	ChEMBL	Inhibition of NFkappaB p65 nuclear translocation in mouse RAW264.7 cells after 24 hrs by DAPI staining-based laser confocal immunofluorescent microscopic analysis	1	1
+
 ...
 ```
-_tested on 2020.06.18, total count was 43._
+_tested on 2021.01.26, EDirect 14.4, total count was 47._
+
 
 ### PubChem Compound <--> PubChem BioAssay
 **Description:** Search for a PubChem CID in PubChem Compound Database, find related compounds with same connectivity, then retrieve related AIDs for each CID.
@@ -183,15 +188,15 @@ user@computer:~$ esearch -email name@xx.edu -db pccompound -query "6303"[uid] | 
 > elink -target pcassay -name pccompound_pcassay_active -cmd neighbor | \
 > xtract -pattern LinkSet -element Id
 ...
-6713033
-6541389
+...
 6335098
 688425
 451875	1347103	1296009	2551	2546
 248010	687016	652245	651719	177	175	173	171	169	167	165	163	161	159	157	155	153	149	147
 6303	1346987	1259407	1255098	1255092	1207585	1207584	1207579	1207578	1207577	1207576	1167619	1159565	1159562	1159559	1159557	1065715	1065714	1065710	1065706	1065697	1065696	1065695	1065713	1065705	1065699	751324	686979	686978	651820	652245	651719	602346	602250	588511	493002	463218	463212	416870	416743	216185	86858	81069	32353	32352	31719	31718	2467
 ```
-_tested on 2020.06.18, total count was 20 CIDs (not all have associated AIDs)._
+_tested on 2021.01.26, EDirect 14.4, total count was 24 CIDs (not all have associated AIDs)._
+
 
 ## EDirect PubMed Entrez Links
 
@@ -209,7 +214,8 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "29407984"[PMID] |
 C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O	2764	MYSWGUAQZAJSOK-UHFFFAOYSA-N
 
 ```
-_tested on 2020.06.17, total count was 1._
+_tested on 2021.01.26, EDirect 14.4, total count was 1._
+
 
 ### PubMed --> PubChem Compound (+ mixtures)
 **Description:** Search for a PubMed article ID (PMID), then retrieve linked PubChem Compound mixtures/components.
@@ -222,14 +228,19 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "29407984"[PMID] |
 > elink -target pccompound -name pubmed_pccompound | \
 > elink -target pccompound -name pccompound_pccompound_mixture | \
 > efetch -format docsum | xtract -pattern DocumentSummary -element IsomericSmiles CID InChIKey
-C1CC(=O)O[C@H]1C(=O)O.C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O	145823787	QQQHNTYLFZIZHE-ZYRQIYSTSA-N
-C1CC(=O)O[C@@H]1C(=O)O.C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O	145823786	QQQHNTYLFZIZHE-HVDRVSQOSA-N
-CC.C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O	144444845	AKBGPLFNEDZIPX-UHFFFAOYSA-N
-CC.CN(/C=C(\C(=O)C1=CC(=C(C(=C1)Cl)N2CCC(C2)N)F)/C(=O)O)C3CC3.C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O	143903639	FMVLVHHCQKXFHZ-IGUOPLJTSA-N
-CC1CCCC1OC2=CC=C(C=C2)C3=CC(=O)C4=C(C=C(C=C4O3)O)O.CO.C=O.C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O	143730536	OMLKGFMLMAMHQX-UHFFFAOYSA-N
+...
+...
+C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O.C(CO)N(CCO)CCO	154963193	NGBBVVPJSFAHHI-UHFFFAOYSA-N
+C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O.C(=O)(C(=O)O)O.[Na]	154963186	HNZYVRRDOWOQIT-UHFFFAOYSA-N
+CNC.C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)O	154963184	NBGZCMHVBXSHSN-UHFFFAOYSA-N
+C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)[OH2+]	153275427	MYSWGUAQZAJSOK-UHFFFAOYSA-O
+C1CC1N2C=C(C(=O)C3=CC(=C(C=C32)N4CCNCC4)F)C(=O)[O-]	152748405	MYSWGUAQZAJSOK-UHFFFAOYSA-M
+...
 ...
 ```
-_tested on 2020.06.17, total count was 364._
+_tested on 2021.01.26, EDirect 14.4, total count was 375._
+
+
 
 ### PubMed --> PubChem Compound (MESH search)
 **Description:** Search PubMed with a text query, then retrieve linked PubChem Compounds.
@@ -249,7 +260,7 @@ CC(=O)OC1=[N+](C=CN1CC=C)C	123614562	XSXMFLUARQMOLS-UHFFFAOYSA-N
 C[N+]1=C(N(C=C1)CCCCCCCCCCCCS)OC(=O)OC2=[N+](C=CN2CCCCCCCCCCCCS)C	123431445	DRJOSAVMFCYCSU-UHFFFAOYSA-P
 ...
 ```
-_tested on 2020.06.17, total count was 395._
+_tested on 2021.01.27, EDirect 14.4, total count was 395._
 
 ### PubMed --> PubChem Compound (MESH search, and a PubChem filter)
 **Description:** Search PubMed with a text query and retrieve only linked compounds containing defined chiral atoms.
@@ -270,12 +281,13 @@ C([C@H]1[C@@H]([C@H]([C@@H]([C@@H](O1)O[C@@H]2[C@@H](O[C@H]([C@@H]([C@H]2O)O)O)C
 C1[C@H](OC2=CC(=CC(=C2C1=O)O)OC3C(C(C(C(O3)CO)O)O)O)C4=CC=C(C=C4)O	42607902	DLIKSSGEMUFQOK-CEFFZDIVSA-N
 ...
 ```
-_tested on 2020.06.17, total count was 43._
+_tested on 2021.01.27, EDirect 14.4, total count was 43._
+
 
 ### PubMed --> PubChem Compounds + PubChem Compounds (MeSH) + PubChem Compounds (Publisher)
 **Description:** Search PubMed, then find linked PubChem Compounds, PubChem Compounds via PubMed MeSH, and PubChem Compound PubMed Publisher.
 
-As seen in the previous PubChem searches, there are several Entrez linkouts from PubMed to PubChem Compound such as `pubmed_pccompound`, `pubmed_pccompound_mesh`, and `pubmed_pccompound_publisher`. We can retrieve associated compounds from all three at the same time like this:
+As seen in the previous PubChem searches, there are several Entrez links from PubMed to PubChem Compound such as `pubmed_pccompound`, `pubmed_pccompound_mesh`, and `pubmed_pccompound_publisher`. We can retrieve associated compounds from all three at the same time like this:
 
 ```console
 
@@ -288,15 +300,16 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "imidazolium AND b
 > esearch -query "(#compounds_01) OR (#compounds_02) OR (#compounds_03)" | \
 > efetch -format docsum | \
 > xtract -pattern DocumentSummary -element IsomericSmiles CID InChIKey
-CC1=C(C2=CC3=NC(=CC4=C(C(=C([N-]4)C=C5C(=C(C(=N5)C=C1[N-]2)C=C)C)[C@H](CCCC(C)CCCC(C)CCCC(C)C)O)C)C(=C3CCC(=O)[O-])C=O)CCC(=O)[O-].[Fe+3]	146026558	JDCCRDMXPNAUND-UJYLPOGRSA-J
+C[Si](C)(O)O[Si](C)(C)O.C[Si](CCC1=CC=CC=C1)(O)O[Si](C)(CCC2=CC=CC=C2)O	155288862	HYTMPCHVCUAIOW-UHFFFAOYSA-N
+CC(C1CCC(C(O1)OC2C(CC(C(C2O)OC3C(C([C@@](CO3)(C)O)NC)O)N)N)N)NC	146157093	CEAZRRDELHUEMR-NWNXOGAHSA-N
 C1=CC=C2C(=C1)C=C(N2)CC3=CC=C(C=C3)C(F)(F)F.C1=CC=C2C(=C1)C=C(N2)CC3=CC=C(C=C3)C(F)(F)F	139191468	NNXWVRXROOQQNO-UHFFFAOYSA-N
 CC[C@@H]1[C@@]2([C@@H]([C@H](C(=O)[C@@H](C[C@@]([C@@H]([C@H](C(=O)[C@H](C(=O)O1)C)C)O[C@@H]3[C@@H]([C@H](C[C@H](O3)C)N(C)C)O)(C)OC)C)C)N(C(=O)O2)CCCCN4C=C(N=C4)C5=CN=CC=C5)C	138402871	LJVAJPDWBABPEJ-WMGYHEQLSA-N
-CCC1[C@@]2([C@H](C(C(=O)C(C[C@@](C(C(C(=O)C(C(=O)O1)C)C)O[C@H]3C(C(CC(O3)C)N(C)C)O)(C)OC)C)C)N(C(=O)O2)CCCCN4C=C(N=C4)C5=CN=CC=C5)C	137794998	LJVAJPDWBABPEJ-UNVLRUHBSA-N
 CCOC(=O)/C(=N\NC1=CC=CC2=C1N=CC=C2)/C3=[N+](C=CN3)C	136199795	ZHOWQGCGVQGEKD-UHFFFAOYSA-O
-CCOC(=O)/C(=N\NC1=CC=CC=C1)/C2=CC=CC=[NH+]2	136199794	VDCLBUQGYUHKMX-JXAWBTAJSA-O
+...
 ...
 ```
-_tested on 2020.06.17, total count was 536._
+_tested on 2021.01.27, EDirect 14.4, total count was 568._
+
 
 ### PubMed <--> PubChem Compound
 **Description:** Search PubMed for an affiliation, find related PubChem Compounds, then retrieve related CIDs for each PMID.
@@ -311,32 +324,25 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "(university of al
 > elink -target pccompound -name pubmed_pccompound -cmd neighbor | \
 > xtract -pattern LinkSet -element Id
 ...
-22735985
-22730471
-22726124	31423	10401	702
-22721834
-22717749	5910
-22700334	136065590	57191410	57098251	11239199	176
-22696533
-22690894
-22676430
-22675270
-22662746	439524
-22653754
-22642521
-22629217	702
-22616693	679	300	284	176
-22607168	289
-22594615	15743871	12749
-22592862
-22589227
-22582378
+...
+21800250
+21783326	18679079	8914	942	702
+21782896
+21756136
+21728552
+21718269
+21711000	561577	169577	166929	166928	164636
+21702462
+21693669
+21692575
+...
 ...
 ```
 
-_tested on 2020.06.17, total count was 3302 (returns all PMIDs, not all have linked CIDs)._
+_tested on 2021.01.27, EDirect 14.4, total count was 3639 (returns all PMIDs, not all have linked CIDs)._
 
 The first column contains the PMIDs and the second column contains the linked PubChem CIDs (from the `pubmed_pccompound` links). As an aside, the PubMed query for "university of alabama" in the affiliation field (`[AFFL]`) excludes (NOT operator) any results containing huntsville or birmingham in the affiliation. This excludes references from University of Alabama at Birmingham and University of Alabama at Huntsville (including collaborative references with the Tuscaloosa campus).
+
 
 ### PubMed --> PubChem BioAssay
 **Description:** Search PubMed for an article, find related PubChem BioAssays, then retrieve some BioAssay data.
@@ -353,7 +359,7 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "32459468"[PMID] |
 1347413	National Center for Advancing Translational Sciences (NCATS)	qHTS to identify inhibitors of the type 1 interferon - major histocompatibility complex class I in skeletal muscle: tertiary screen by RT-qPCR, retest select compounds	3	1
 ...
 ```
-_tested on 2020.06.19, total count was 7._
+_tested on 2021.01.27, EDirect 14.4, total count was 7._
 
 ### PubMed <--> PubChem BioAssay
 **Description:** Search PubMed for an article, find cited articles, then related PubChem BioAssays.
@@ -368,22 +374,17 @@ user@computer:~$ esearch -email name@xx.edu -db pubmed -query "17876319"[PMID] |
 > elink -target pcassay -name pubmed_pcassay -cmd neighbor | \
 > xtract -pattern LinkSet -element Id
 ...
+...
 21167154
 21164511
 21159777
 21138309	568760	568754	568753	568763	568762	568761	568759	568758	568757	568756	568755
 21131971
 21129186
-21056617
-20956805
-20950272
-20932746	977611	977608	527862	527860	527856	527855	527854	527861	527859	527858	527857
-20708627
-20682773
-20665611
+...
 ...
 ```
-_tested on 2020.06.19, total count was 347 (returns all PMIDs, not all have linked AIDs)._
+_tested on 2021.01.27, EDirect 14.4, total count was 366 (returns all PMIDs, not all have linked AIDs)._
 
 In the above table, the first column contains the PMIDs, subsequent columns contain the linked BioAssays (AIDs).
 
@@ -412,8 +413,7 @@ user@computer:~$ esearch -email name@xx.edu -db pcassay -query "IUPHAR/BPS_Guide
 29608575	Taylor Meadows	KR	PLoS ONE	2018	13	4	e0193236
 ...
 ```
-_tested on 2020.06.19, total count was 332._
-
+_tested on 2021.01.27, EDirect 14.4, total count was 332._
 
 ### PubChem BioAssay --> PubChem Compound
 **Description:** Search PubChem BioAssay for an assay, find related PubChem Compounds, and retrieve some property data for the compounds.
@@ -437,7 +437,7 @@ CCNC(=O)C1=C(NC(=N1)C2=CC=CC=C2)C(=O)O	52941818	3	4	259.260	1.6
 CNC(=O)C1=C(NC(=N1)C2=CC=CC=C2)C(=O)O	52941817	3	4	245.230	1.2
 ...
 ```
-_tested on 2020.06.22, total count was 16._
+_tested on 2021.01.27, EDirect 14.4, total count was 16._
 
 ### PubChem BioAssay <--> PubChem Compound
 **Description:** Search PubChem BioAssay for an assay, find related assays based on similar publications, then find related PubChem Compounds.
@@ -451,25 +451,21 @@ user@computer:~$ esearch -email name@xx.edu -db pcassay -query "527855"[UID] | \
 > elink -target pcassay -name pcassay_pcassay_similar_publication_list | \
 > elink -target pccompound -name pcassay_pccompound -cmd neighbor | \
 > xtract -pattern LinkSet -element Id
-1186737	11689942
-1186736	11689942
-1186735	11689942
-1186734	11689942
-1186733	11689942
-1186732	11689942	11655448	11590467	11510716
-1186731	118719547	11718765	11689343	11510199
-1186730	118719547	11718765	11689343	11510199
-1186729	118719547	11718765	11689343	11510199
-1186728	118719547	118709966	118709965	118709964	118709963	118709962	118709961	118709960	118709959	11718765	11689942	11689343	11675244	11655448	11590467	11581756	11510716	11510199
-1175274	118722473	118722472	118722471	118722470	118722469	118722468	118722467	118722466	118722465	118722464	118722463	118722462	118722461	15559100	3806
-761672	643974
-761671	643974
-761670	73355112	46191373	16093564	11418384	11234712	11181229	69762
+...
+...
+601409	54580326
+601408	54580326	53257623
+601154	54580326
+657046	16093559
+657045	70695880	70693764	70687505	70687504	70687503	70683264	70683263	70681155	70681154	70681153	60150625
+527862	52948352
+527861	52948352
+...
+...
 ...
 ```
 
 In the above table, the first column contains the AIDs, subsequent columns contain the linked PubChem Compounds (CIDs).
 
-
-_tested on 2020.06.22, total count was 81 (returns all AIDs, not all have linked CIDs)._
+_tested on 2021.01.27, EDirect 14.4, total count was 81 (returns all AIDs, not all have linked CIDs)._
 
