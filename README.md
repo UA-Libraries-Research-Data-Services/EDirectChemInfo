@@ -2,9 +2,8 @@
 
 **Notes**
 
-> This repository has recently been transferred to the University of Alabama Libraries GitHub organization (ualibweb).
-> If you notice any incorrect hyperlinks within the content, please let us know. We are working on checking links as soon as possible.
-
+> Oct 21, 2024 - This repository has recently been transferred from The University of Alabama Libraries Web Services GitHub to The University of Alabama Libraries Research Data Services GitHub organization.
+> If you notice any incorrect hyperlinks within the content, please let us know.
 
 This repository contains Entrez Direct (EDirect, an NCBI tool) Unix scripts for programmatically obtaining data from various NCBI databases. Other EDirect resources and guides exist (referenced below). This EDirectChemInfo repository differs in that the focus is on teaching how to obtain chemical information, cheminformatics data, and chemical structure <--> bioassay <--> document relationship links. There are not many PubChem EDirect examples available, so hopefully this repository proves useful. I have also added some tips, step-wise directions, and code output examples to help you get started.
 
