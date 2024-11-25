@@ -41,5 +41,7 @@ These are the main references I used to learn about NCBI E-Utilities, the EDirec
 
 ## License Notes
 
-Code in this repository is licensed under the [MIT License](https://github.com/vfscalfani/EDirectChemInfo/blob/master/LICENSE). Code output (e.g., reference/molecular data snippets) retrieved from NCBI via their EDirect utility is shown for code demonstration purposes only and is credited to NCBI and NLM. Please see the [NCBI Website and Data Usage Policies and Disclaimers](https://www.ncbi.nlm.nih.gov/home/about/policies/) for more information regarding the data.
+Code in this repository is licensed under the [MIT License](https://github.com/vfscalfani/EDirectChemInfo/blob/master/LICENSE). Some of the chemical depiction demonstrations from EDirect output use proprietary software, such as ChemAxon Marvin, which is not included under this license. Users must have valid licenses for any required proprietary software to run these portions of the code.
+
+Code output (e.g., reference/molecular data snippets) retrieved from NCBI via their EDirect utility is shown for code demonstration purposes only and is credited to NCBI and NLM. Please see the [NCBI Website and Data Usage Policies and Disclaimers](https://www.ncbi.nlm.nih.gov/home/about/policies/) for more information regarding the data.
 
